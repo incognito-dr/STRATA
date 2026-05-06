@@ -4,56 +4,80 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>STRATA — Body Composition Intelligence</title>
+
+<!-- OG / WhatsApp Preview -->
+<meta property="og:title" content="Know every layer of your body.">
+<meta property="og:description" content="Track muscle, fat and water across every scan. Built for GLP-1 users, peptide protocols, and serious body recomposition.">
+<meta property="og:image" content="https://og-strata.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STRATA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Know every layer of your body.">
+<meta name="twitter:description" content="Track muscle, fat and water across every scan.">
+
+<!-- Favicon: SVG logo symbol only -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 533 400'%3E%3Crect width='533' height='400' fill='%23080808'/%3E%3Cpath d='M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z' fill='white'/%3E%3Cpath d='M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z' fill='white'/%3E%3Cpath d='M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z' fill='white'/%3E%3C/svg%3E">
+
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#080808;--bg2:#0d0d0d;--bg3:#111;--bg4:#161616;--bg5:#1c1c1c;
-  --border:#1e1e1e;--border2:#2a2a2a;
-  --white:#fff;--gray1:#f0f0f0;--gray2:#aaa;--gray3:#666;--gray4:#3a3a3a;
+  --bg:#080808;--bg2:#0a0a0a;--bg3:#111;--bg4:#161616;--bg5:#1c1c1c;
+  --border:#1a1a1a;--border2:#2a2a2a;
+  --white:#fff;--gray1:#f0f0f0;--gray2:#aaa;--gray3:#555;--gray4:#333;
   --blue:#006AFF;--blue2:#0055CC;--blue3:#004099;--blue4:#3388FF;--blue5:#66a6ff;
-  --bluedim:rgba(0,106,255,.12);--blueglow:rgba(0,106,255,.4);
-  --red:#ff6b6b;--font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --bluedim:rgba(0,106,255,.1);
+  --red:#ff6b6b;
+  --font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--white);font-family:var(--font);overflow-x:hidden;line-height:1.6}
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#222;border-radius:2px}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#1e1e1e;border-radius:2px}
 
+/* PAGE VIEWS */
+.page{display:none}.page.active{display:block}
+
+/* ANN */
 .ann{background:var(--blue2);text-align:center;padding:9px 20px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#fff}
-.ann a{color:#fff;text-decoration:underline;margin-left:8px;opacity:.8}
+.ann a{color:#fff;text-decoration:underline;margin-left:8px;opacity:.85}
 
-nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none;cursor:pointer}
 .nav-logo svg{height:24px;width:auto}
 .nav-wm{font-family:var(--font);font-weight:700;font-size:14px;letter-spacing:.18em;color:var(--white)}
 .nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:var(--gray3);text-decoration:none;font-size:12px;letter-spacing:.05em;transition:color .15s}
+.nav-links a{color:var(--gray3);text-decoration:none;font-size:12px;letter-spacing:.04em;transition:color .15s}
 .nav-links a:hover{color:var(--white)}
 .nav-r{display:flex;align-items:center;gap:12px}
-.lang-sw{display:flex;gap:1px;background:var(--bg3);border:1px solid var(--border2);border-radius:5px;padding:2px}
-.lb{background:none;border:none;color:var(--gray3);font-family:var(--font);font-size:11px;font-weight:500;letter-spacing:.08em;padding:4px 9px;border-radius:3px;cursor:pointer;transition:all .15s}
+.lang-sw{display:flex;gap:1px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:2px}
+.lb{background:none;border:none;color:var(--gray3);font-family:var(--font);font-size:11px;font-weight:500;letter-spacing:.08em;padding:4px 9px;border-radius:4px;cursor:pointer;transition:all .15s}
 .lb.active{background:var(--bg5);color:var(--white)}
-.bg{background:none;color:var(--gray2);font-family:var(--font);font-size:12px;padding:7px 15px;border:1px solid var(--border2);border-radius:5px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
-.bg:hover{color:var(--white);border-color:#444}
-.bp{background:var(--blue);color:#fff;font-family:var(--font);font-size:12px;font-weight:600;letter-spacing:.04em;padding:7px 18px;border:none;border-radius:5px;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-block}
-.bp:hover{background:var(--blue2)}
+
+/* BUTTONS — Apple/Ultrahuman style */
+.btn-w{background:#fff;color:#000;font-family:var(--font);font-size:13px;font-weight:600;padding:10px 22px;border:none;border-radius:980px;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-block;letter-spacing:.02em}
+.btn-w:hover{background:#e0e0e0}
+.btn-wb{background:none;color:#fff;font-family:var(--font);font-size:13px;font-weight:400;padding:9px 21px;border:1px solid rgba(255,255,255,.3);border-radius:980px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;letter-spacing:.02em}
+.btn-wb:hover{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.05)}
+.btn-blue{background:var(--blue);color:#fff;font-family:var(--font);font-size:14px;font-weight:600;padding:14px 36px;border:none;border-radius:980px;cursor:pointer;transition:background .2s;text-decoration:none;letter-spacing:.02em}
+.btn-blue:hover{background:var(--blue2)}
+.btn-wire{background:none;color:var(--white);font-family:var(--font);font-size:14px;font-weight:300;padding:13px 35px;border:1px solid rgba(255,255,255,.25);border-radius:980px;cursor:pointer;transition:all .2s;text-decoration:none;letter-spacing:.02em}
+.btn-wire:hover{border-color:rgba(255,255,255,.6)}
 
 /* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 40px 80px;overflow:hidden}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 40px 80px;overflow:hidden;background:var(--bg)}
 #hc{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
-.hi{position:relative;z-index:2;max-width:880px}
-.h-eye{font-size:11px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--blue4);margin-bottom:28px;font-family:var(--mono)}
-.h-title{font-family:var(--font);font-size:clamp(60px,9vw,112px);font-weight:700;line-height:.93;letter-spacing:-.035em;text-transform:uppercase;color:var(--white);margin-bottom:26px}
-.h-title em{font-style:normal;color:var(--blue)}
-.h-sub{font-size:17px;font-weight:300;color:var(--gray2);max-width:490px;margin:0 auto 48px;line-height:1.65;letter-spacing:.01em}
-.h-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.bbl{background:var(--blue);color:#fff;font-family:var(--font);font-size:14px;font-weight:600;padding:14px 36px;border:none;border-radius:6px;cursor:pointer;transition:background .2s;text-decoration:none;letter-spacing:.03em}
-.bbl:hover{background:var(--blue2)}
-.bwi{background:none;color:var(--white);font-family:var(--font);font-size:14px;font-weight:300;padding:14px 36px;border:1px solid var(--border2);border-radius:6px;cursor:pointer;transition:all .2s;text-decoration:none;letter-spacing:.03em}
-.bwi:hover{border-color:var(--gray3)}
+.hi{position:relative;z-index:2;max-width:860px}
+.h-eye{font-size:11px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:32px;font-family:var(--mono)}
+.h-title{font-family:var(--font);font-size:clamp(56px,8.5vw,108px);font-weight:700;line-height:.94;letter-spacing:-.035em;text-transform:uppercase;color:var(--white);margin-bottom:28px}
+.h-title em{font-style:normal;color:var(--blue4)}
+.h-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 52px;line-height:1.65}
+.h-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .h-scroll{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px}
-.s-label{font-size:10px;letter-spacing:.22em;color:var(--gray4);text-transform:uppercase;font-family:var(--mono)}
-.s-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gray4),transparent);animation:pulse 2.2s ease-in-out infinite}
+.s-label{font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.2);text-transform:uppercase;font-family:var(--mono)}
+.s-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.2),transparent);animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.3}50%{opacity:.9}}
 
 /* TICKER */
@@ -62,21 +86,21 @@ nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.95);backdrop-filter
 .tick-wrap::before{left:0;background:linear-gradient(to right,var(--bg2),transparent)}
 .tick-wrap::after{right:0;background:linear-gradient(to left,var(--bg2),transparent)}
 .tick-track{display:flex;animation:tick 34s linear infinite;white-space:nowrap}
-.tick-item{display:inline-flex;align-items:center;padding:0 30px;font-size:11px;font-weight:500;letter-spacing:.2em;color:var(--gray3);text-transform:uppercase;font-family:var(--mono)}
+.tick-item{display:inline-flex;align-items:center;padding:0 28px;font-size:11px;font-weight:400;letter-spacing:.2em;color:var(--gray3);text-transform:uppercase;font-family:var(--mono)}
 @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* LAYOUT */
+/* SECTIONS */
 section{padding:110px 48px}
 .inn{max-width:1080px;margin:0 auto}
-.s-eye{font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--blue4);margin-bottom:16px;font-family:var(--mono)}
+.s-eye{font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;font-family:var(--mono)}
 .s-title{font-family:var(--font);font-size:clamp(38px,5vw,60px);font-weight:700;letter-spacing:-.025em;text-transform:uppercase;line-height:.97;margin-bottom:16px}
 .s-sub{font-size:16px;color:var(--gray2);font-weight:300;max-width:500px;line-height:1.7}
 
 /* METRICS */
-.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:52px}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:52px}
 .mc{background:var(--bg2);padding:30px 24px;transition:background .2s}
-.mc:hover{background:var(--bg3)}
-.mi{width:30px;height:30px;border-radius:6px;background:var(--bg4);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:12px;color:var(--blue4)}
+.mc:hover{background:#0e0e0e}
+.mi{width:28px;height:28px;border-radius:6px;background:var(--bg4);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:12px;color:rgba(255,255,255,.4)}
 .mv{font-family:var(--mono);font-size:30px;font-weight:500;color:var(--white);margin-bottom:2px;line-height:1}
 .mv span{font-size:13px;color:var(--gray3);margin-left:2px;font-weight:400}
 .md{font-family:var(--mono);font-size:11px;font-weight:500;margin-bottom:9px}
@@ -84,47 +108,46 @@ section{padding:110px 48px}
 .mn{font-size:10px;color:var(--gray3);letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono)}
 
 /* CHART */
-.chbg{background:var(--bg2)}
-.chbox{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:26px;margin-top:52px}
+.chbg{background:var(--bg3)}
+.chbox{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:26px;margin-top:52px}
 .chtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}
 .chleg{display:flex;gap:18px}
 .li{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--gray2);font-family:var(--mono);cursor:pointer;transition:all .2s;padding:4px 8px;border-radius:4px}
-.li:hover{background:rgba(255,255,255,.05)}
-.li.glow-active{color:var(--white)}
+.li:hover{background:rgba(255,255,255,.04)}
 .ld{width:18px;height:2px;border-radius:1px;flex-shrink:0}
 .ctabs{display:flex;gap:3px}
 .ct{background:none;border:1px solid var(--border2);color:var(--gray3);font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;padding:5px 11px;border-radius:4px;cursor:pointer;transition:all .15s}
-.ct.active{background:var(--bg4);color:var(--white);border-color:#3a3a3a}
+.ct.active{background:var(--bg4);color:var(--white);border-color:#333}
 #mcw{position:relative;height:300px}
 
 /* HOW */
 .hwbg{background:var(--bg)}
-.steps{display:flex;gap:0;margin-top:52px;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.steps{display:flex;gap:0;margin-top:52px;border:1px solid var(--border);border-radius:16px;overflow:hidden}
 .stp{flex:1;padding:40px 28px;background:var(--bg2);border-right:1px solid var(--border);transition:background .2s}
 .stp:last-child{border-right:none}
-.stp:hover{background:var(--bg3)}
-.sn{font-family:var(--mono);font-size:10px;color:var(--blue);letter-spacing:.22em;text-transform:uppercase;margin-bottom:20px;display:block}
+.stp:hover{background:#0e0e0e}
+.sn{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.22em;text-transform:uppercase;margin-bottom:20px;display:block}
 .stp h3{font-family:var(--font);font-size:18px;font-weight:600;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:10px;line-height:1.15}
 .stp p{font-size:13px;color:var(--gray2);line-height:1.65;font-weight:300}
 
 /* PROTOCOLS */
-.pbg{background:var(--bg2)}
-.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:52px}
-.pc{background:var(--bg2);padding:34px 28px;transition:background .2s}
-.pc:hover{background:#0e0e0e}
-.ptag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:16px;font-family:var(--mono)}
-.tg{background:rgba(0,106,255,.1);color:var(--blue4)}
-.tp{background:rgba(51,136,255,.1);color:var(--blue5)}
-.tgm{background:rgba(255,107,107,.1);color:var(--red)}
-.tr{background:rgba(255,200,80,.1);color:#ffcc44}
+.pbg{background:var(--bg3)}
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:52px}
+.pc{background:var(--bg3);padding:34px 28px;transition:background .2s}
+.pc:hover{background:#0c0c0c}
+.ptag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;border-radius:980px;margin-bottom:16px;font-family:var(--mono);border:1px solid}
+.tg{border-color:rgba(0,106,255,.4);color:var(--blue4);background:rgba(0,106,255,.06)}
+.tp{border-color:rgba(51,136,255,.4);color:var(--blue5);background:rgba(51,136,255,.06)}
+.tgm{border-color:rgba(255,107,107,.4);color:var(--red);background:rgba(255,107,107,.06)}
+.tr{border-color:rgba(255,200,80,.4);color:#ffcc44;background:rgba(255,200,80,.06)}
 .pc h3{font-family:var(--font);font-size:20px;font-weight:600;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:9px;line-height:1.1}
 .pc p{font-size:13px;color:var(--gray2);line-height:1.65;font-weight:300}
 .pchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
-.pch{font-size:10px;color:var(--gray3);background:var(--bg3);border:1px solid var(--border2);padding:3px 8px;border-radius:3px;font-family:var(--mono);letter-spacing:.06em}
+.pch{font-size:10px;color:var(--gray3);background:var(--bg4);border:1px solid var(--border2);padding:3px 8px;border-radius:4px;font-family:var(--mono);letter-spacing:.05em}
 
-/* DASHBOARD */
+/* DASHBOARD PREVIEW */
 .dbg{background:var(--bg)}
-.dmock{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:52px}
+.dmock{background:var(--bg3);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:52px}
 .dbar{background:var(--bg);border-bottom:1px solid var(--border);padding:13px 22px;display:flex;align-items:center;justify-content:space-between}
 .dusr{display:flex;align-items:center;gap:10px}
 .dav{width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
@@ -132,23 +155,23 @@ section{padding:110px 48px}
 .dpr{font-size:10px;color:var(--blue4);letter-spacing:.08em;font-family:var(--mono)}
 .dbody{padding:20px}
 .dkpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}
-.dk{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:14px 13px}
+.dk{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 13px}
 .dkv{font-family:var(--mono);font-size:22px;font-weight:500;line-height:1}
 .dkv span{font-size:10px;color:var(--gray3)}
 .dkd{font-family:var(--mono);font-size:10px;margin-top:2px}
 .dkn{font-size:10px;color:var(--gray3);margin-top:5px;text-transform:uppercase;letter-spacing:.06em;font-family:var(--mono)}
-.dchw{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:16px}
+.dchw{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
 .dchead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.dct{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);color:var(--gray2)}
+.dct{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);color:var(--gray3)}
 #dcw{position:relative;height:150px}
 
 /* PDF */
-.pdfbg{background:var(--bg)}
+.pdfbg{background:var(--bg3)}
 .pdfsplit{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:52px}
 .pfts{display:flex;flex-direction:column;gap:10px;margin-top:22px}
 .pft{font-size:13px;color:var(--gray2);display:flex;align-items:center;gap:10px;font-weight:300}
-.pft::before{content:'→';color:var(--blue);font-size:12px;flex-shrink:0}
-.pmock{background:#fff;border-radius:10px;padding:26px 22px;color:#0a0a0a;font-family:var(--mono)}
+.pft::before{content:'→';color:rgba(255,255,255,.3);font-size:12px;flex-shrink:0}
+.pmock{background:#fff;border-radius:14px;padding:26px 22px;color:#0a0a0a;font-family:var(--mono)}
 .pmh{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #0a0a0a;padding-bottom:12px;margin-bottom:16px}
 .pmbr{font-family:var(--font);font-size:15px;font-weight:700;letter-spacing:.14em}
 .pmdt{font-size:9px;color:#888;letter-spacing:.08em}
@@ -159,30 +182,34 @@ section{padding:110px 48px}
 .pmrl{color:#888}.pmrv{font-weight:500}
 
 /* PRICING */
-.pribg{background:var(--bg2)}
+.pribg{background:var(--bg)}
+.disc-banner{display:none;background:linear-gradient(135deg,var(--blue2),var(--blue3));border:1px solid var(--blue);border-radius:12px;padding:18px 24px;margin:24px auto 0;max-width:440px;text-align:center}
+.disc-banner.show{display:block}
+.disc-banner h3{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.02em;margin-bottom:4px}
+.disc-banner p{font-size:13px;color:rgba(255,255,255,.7);font-family:var(--mono)}
 .ptog{display:flex;align-items:center;gap:12px;margin:42px auto 0;width:fit-content}
 .tl{font-size:12px;color:var(--gray2);font-family:var(--mono)}
-.tog{width:42px;height:22px;background:var(--bg4);border:1px solid var(--border2);border-radius:11px;position:relative;cursor:pointer;transition:background .2s}
+.tog{width:44px;height:24px;background:var(--bg4);border:1px solid var(--border2);border-radius:12px;position:relative;cursor:pointer;transition:background .2s}
 .tog.on{background:var(--blue)}
-.tok{position:absolute;top:3px;left:3px;width:14px;height:14px;background:#fff;border-radius:50%;transition:transform .2s}
+.tok{position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.4)}
 .tog.on .tok{transform:translateX(20px)}
-.spill{font-size:10px;font-weight:600;color:var(--blue4);background:var(--bluedim);padding:3px 8px;border-radius:3px;letter-spacing:.08em;font-family:var(--mono)}
-.pcards{display:grid;grid-template-columns:1fr 1fr;gap:13px;max-width:660px;margin:26px auto 0}
-.pcard{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:32px 26px;transition:border-color .2s}
-.pcard.feat{border-color:var(--blue);position:relative}
-.fbadge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 14px;border-radius:20px;white-space:nowrap;font-family:var(--mono)}
+.spill{font-size:10px;font-weight:600;color:var(--blue4);background:var(--bluedim);padding:3px 9px;border-radius:980px;letter-spacing:.08em;font-family:var(--mono);border:1px solid rgba(0,106,255,.2)}
+.pcards{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:660px;margin:26px auto 0}
+.pcard{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:32px 26px;transition:border-color .2s}
+.pcard.feat{border-color:rgba(255,255,255,.2);position:relative}
+.fbadge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#fff;color:#000;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 16px;border-radius:980px;white-space:nowrap;font-family:var(--mono)}
 .pcn{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gray3);margin-bottom:16px;font-family:var(--mono)}
-.pcp{font-size:50px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.pcp{font-size:52px;font-weight:700;letter-spacing:-.04em;line-height:1}
 .pcp sup{font-size:17px;vertical-align:super;font-weight:400}
 .pcp sub{font-size:12px;color:var(--gray3);font-weight:300}
 .pceq{font-size:11px;color:var(--gray3);margin-top:4px;margin-bottom:20px;font-family:var(--mono)}
 .pcfl{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
 .pcfl li{font-size:12px;color:var(--gray2);display:flex;align-items:center;gap:8px;font-family:var(--mono)}
-.pcfl li::before{content:'';width:12px;height:12px;border-radius:50%;border:1px solid var(--blue);background:var(--bluedim);flex-shrink:0}
+.pcfl li::before{content:'';width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
 .pcnote{font-size:10px;color:var(--gray4);margin-top:9px;font-family:var(--mono)}
 
 /* FAQ */
-.faqbg{background:var(--bg2)}
+.faqbg{background:var(--bg3)}
 .faql{margin-top:52px;max-width:700px}
 .fqi{border-top:1px solid var(--border)}
 .fqi:last-child{border-bottom:1px solid var(--border)}
@@ -194,7 +221,7 @@ section{padding:110px 48px}
 
 /* FOOTER */
 footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px 34px}
-.fwm{font-family:var(--font);font-size:clamp(64px,11vw,148px);font-weight:700;letter-spacing:-.04em;color:var(--bg3);margin-bottom:26px;line-height:1;text-transform:uppercase;user-select:none}
+.fwm{font-family:var(--font);font-size:clamp(64px,11vw,148px);font-weight:700;letter-spacing:-.04em;color:#0e0e0e;margin-bottom:26px;line-height:1;text-transform:uppercase;user-select:none}
 .ftop{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:38px;margin-bottom:52px}
 .fbrand p{font-size:12px;color:var(--gray3);margin-top:12px;line-height:1.7;max-width:200px;font-weight:300}
 .fcol h4{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gray3);margin-bottom:16px;font-family:var(--mono)}
@@ -207,12 +234,67 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
 .fls a{font-size:11px;color:var(--gray3);text-decoration:none;font-family:var(--mono)}
 .fls a:hover{color:var(--gray2)}
 
+/* ── DASHBOARD PAGE ── */
+#dash-page{background:var(--bg);min-height:100vh}
+.dash-nav{background:rgba(8,8,8,.97);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.dash-logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer}
+.dash-body-wrap{padding:32px;max-width:1200px;margin:0 auto}
+.dash-greeting{margin-bottom:28px}
+.dash-greeting h1{font-size:28px;font-weight:700;letter-spacing:-.02em;text-transform:uppercase}
+.dash-greeting p{font-size:13px;color:var(--gray3);font-family:var(--mono);margin-top:4px}
+.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.dk2{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:20px 18px}
+.dk2-val{font-family:var(--mono);font-size:28px;font-weight:500;line-height:1;margin-bottom:3px}
+.dk2-val span{font-size:13px;color:var(--gray3)}
+.dk2-delta{font-family:var(--mono);font-size:11px;margin-bottom:8px}
+.dk2-name{font-size:11px;color:var(--gray3);text-transform:uppercase;letter-spacing:.06em;font-family:var(--mono)}
+.dash-grid{display:grid;grid-template-columns:1fr 360px;gap:16px;margin-bottom:20px}
+.dash-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:22px}
+.dash-card-title{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray3);font-family:var(--mono);margin-bottom:18px}
+#dp-chart{height:220px;position:relative}
+.session-list{display:flex;flex-direction:column;gap:8px}
+.sess-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.sess-row:last-child{border-bottom:none}
+.sess-date{font-size:11px;color:var(--gray3);font-family:var(--mono)}
+.sess-tag{font-size:10px;padding:2px 8px;border-radius:980px;font-family:var(--mono);border:1px solid rgba(0,106,255,.3);color:var(--blue4);background:rgba(0,106,255,.06)}
+.sess-vals{font-family:var(--mono);font-size:12px;color:var(--gray2);text-align:right}
+.sess-delta{font-size:10px}
+.upload-area{background:var(--bg);border:1px dashed var(--border2);border-radius:12px;padding:32px;text-align:center;cursor:pointer;transition:all .2s;margin-top:16px}
+.upload-area:hover{border-color:rgba(255,255,255,.2);background:#0d0d0d}
+.upload-area input{display:none}
+.upload-icon{font-size:28px;margin-bottom:12px;opacity:.3}
+.upload-title{font-size:14px;font-weight:500;margin-bottom:6px}
+.upload-sub{font-size:12px;color:var(--gray3);font-weight:300}
+.upload-btn{display:inline-block;margin-top:14px;background:#fff;color:#000;font-family:var(--font);font-size:12px;font-weight:600;padding:9px 20px;border-radius:980px;cursor:pointer;transition:background .2s;border:none}
+.upload-btn:hover{background:#e0e0e0}
+.dash-actions{display:flex;gap:10px}
+
+/* LOGIN PAGE */
+#login-page{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px}
+.login-box{width:100%;max-width:400px}
+.login-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:48px}
+.login-logo svg{height:28px}
+.login-logo span{font-family:var(--font);font-weight:700;font-size:16px;letter-spacing:.16em}
+.login-title{font-size:28px;font-weight:700;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:6px;text-align:center}
+.login-sub{font-size:13px;color:var(--gray3);font-family:var(--mono);margin-bottom:36px;text-align:center}
+.form-group{margin-bottom:16px}
+.form-label{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray3);font-family:var(--mono);margin-bottom:8px;display:block}
+.form-input{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:13px 16px;font-family:var(--font);font-size:14px;color:var(--white);outline:none;transition:border-color .2s}
+.form-input:focus{border-color:rgba(255,255,255,.3)}
+.form-input::placeholder{color:var(--gray3)}
+.login-btn{width:100%;background:#fff;color:#000;font-family:var(--font);font-size:14px;font-weight:700;padding:14px;border:none;border-radius:980px;cursor:pointer;transition:background .2s;margin-top:8px;letter-spacing:.02em}
+.login-btn:hover{background:#e0e0e0}
+.login-footer{text-align:center;margin-top:24px;font-size:12px;color:var(--gray3);font-family:var(--mono)}
+.login-footer a{color:var(--gray2);text-decoration:none}
+.demo-hint{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12px;color:var(--gray2);font-family:var(--mono);text-align:center}
+.demo-hint span{color:var(--blue4)}
+
 /* REVEAL */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:translateY(0)}
 
 @media(max-width:900px){
-  nav{padding:0 18px}.nav-links{display:none}
+  nav,dash-nav{padding:0 18px}.nav-links{display:none}
   section{padding:70px 18px}
   .mg{grid-template-columns:repeat(2,1fr)}
   .steps{flex-direction:column}.stp{border-right:none;border-bottom:1px solid var(--border)}
@@ -221,23 +303,27 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
   .pdfsplit{grid-template-columns:1fr}
   .ftop{grid-template-columns:1fr 1fr}
   .dkpis{grid-template-columns:repeat(2,1fr)}
+  .dash-kpis{grid-template-columns:repeat(2,1fr)}
+  .dash-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<div class="ann" id="ann">GLP-1 Users: Protect Your Muscle While The Weight Comes Off — <a href="#pricing">Start Free Trial →</a></div>
+<!-- ══ LANDING PAGE ══════════════════════════════════════════════════════ -->
+<div id="main-page" class="page active">
+
+<div class="ann" id="ann">GLP-1 Users: Protect Your Muscle While The Weight Comes Off — <a href="#pricing">Start Free 7 Days →</a></div>
 
 <nav>
-  <a href="#" class="nav-logo">
+  <div class="nav-logo" onclick="showPage('main-page')">
     <svg viewBox="0 0 533 400" fill="none"><path d="M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z" fill="white"/><path d="M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z" fill="white"/><path d="M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z" fill="white"/></svg>
     <span class="nav-wm">STRATA</span>
-  </a>
+  </div>
   <ul class="nav-links">
     <li><a href="#metrics" data-i18n="nav_metrics">Metrics</a></li>
     <li><a href="#how" data-i18n="nav_how">How it works</a></li>
     <li><a href="#protocols" data-i18n="nav_protocols">Protocols</a></li>
-    <li><a href="#dashboard" data-i18n="nav_dashboard">Dashboard</a></li>
     <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
   </ul>
   <div class="nav-r">
@@ -246,11 +332,12 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
       <button class="lb" onclick="setLang('es')">ES</button>
       <button class="lb" onclick="setLang('fr')">FR</button>
     </div>
-    <a href="#dashboard" class="bg" data-i18n="nav_login">Log in</a>
-    <a href="#pricing" class="bp" data-i18n="nav_start">Start free</a>
+    <button class="btn-wb" onclick="showPage('login-page')" data-i18n="nav_login">Log in</button>
+    <button class="btn-w" onclick="showPage('login-page')" data-i18n="nav_start">Start free</button>
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero" id="home">
   <canvas id="hc"></canvas>
   <div class="hi">
@@ -258,8 +345,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
     <h1 class="h-title" data-i18n="hero_title">Know every<br><em>layer</em><br>of your body.</h1>
     <p class="h-sub" data-i18n="hero_sub">Track muscle, fat, and water across every scan. Built for GLP-1 users, peptide protocols, and serious body recomposition.</p>
     <div class="h-ctas">
-      <a href="#pricing" class="bbl" data-i18n="hero_cta1">Start 7-day free trial</a>
-      <a href="#dashboard" class="bwi" data-i18n="hero_cta2">See the dashboard</a>
+      <a href="#pricing" class="btn-w" data-i18n="hero_cta1">Start 7-day free trial</a>
+      <button class="btn-wire" onclick="showPage('login-page')" data-i18n="hero_cta2">See the dashboard</button>
     </div>
   </div>
   <div class="h-scroll"><div class="s-line"></div><span class="s-label" data-i18n="scroll">Scroll</span></div>
@@ -267,7 +354,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
 
 <div class="tick-wrap"><div class="tick-track" id="ticker"></div></div>
 
-<section class="metrics-bg" id="metrics" style="background:var(--bg)">
+<!-- METRICS -->
+<section id="metrics" style="background:var(--bg)">
   <div class="inn">
     <p class="s-eye rv" data-i18n="metrics_lbl">Quality-grade tracking</p>
     <h2 class="s-title rv" data-i18n="metrics_title">Every metric<br>that matters.</h2>
@@ -283,15 +371,16 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
   </div>
 </section>
 
+<!-- CHART -->
 <section class="chbg" id="chart">
   <div class="inn">
     <p class="s-eye rv" data-i18n="chart_lbl">Progress visualization</p>
     <h2 class="s-title rv" data-i18n="chart_title">Watch the<br>lines cross.</h2>
-    <p class="s-sub rv" data-i18n="chart_sub">The moment your muscle line holds while fat drops — that's your protocol working. Hover any line to isolate it with a glow effect.</p>
+    <p class="s-sub rv" data-i18n="chart_sub">The moment your muscle line holds while fat drops — that's your protocol working. Hover any line to isolate it.</p>
     <div class="chbox rv">
       <div class="chtop">
         <div class="chleg">
-          <div class="li" data-ds="0" onmouseenter="glowLine(0)" onmouseleave="clearGlow()"><div class="ld" style="background:rgba(255,255,255,.75)"></div><span data-i18n="l_weight">WEIGHT</span></div>
+          <div class="li" data-ds="0" onmouseenter="glowLine(0)" onmouseleave="clearGlow()"><div class="ld" style="background:rgba(255,255,255,.7)"></div><span data-i18n="l_weight">WEIGHT</span></div>
           <div class="li" data-ds="1" onmouseenter="glowLine(1)" onmouseleave="clearGlow()"><div class="ld" style="background:var(--blue)"></div><span data-i18n="l_muscle">MUSCLE</span></div>
           <div class="li" data-ds="2" onmouseenter="glowLine(2)" onmouseleave="clearGlow()"><div class="ld" style="background:var(--red);opacity:.8"></div><span data-i18n="l_fat">FAT %</span></div>
         </div>
@@ -308,6 +397,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
   </div>
 </section>
 
+<!-- HOW -->
 <section class="hwbg" id="how">
   <div class="inn">
     <p class="s-eye rv" data-i18n="how_lbl">How it works</p>
@@ -320,6 +410,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
   </div>
 </section>
 
+<!-- PROTOCOLS -->
 <section class="pbg" id="protocols">
   <div class="inn">
     <p class="s-eye rv" data-i18n="proto_lbl">Built for every protocol</p>
@@ -333,45 +424,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
   </div>
 </section>
 
-<section class="dbg" id="dashboard">
-  <div class="inn">
-    <p class="s-eye rv" data-i18n="dash_lbl">Live dashboard</p>
-    <h2 class="s-title rv" data-i18n="dash_title">Your data.<br>Always on.</h2>
-    <p class="s-sub rv" data-i18n="dash_sub">No account needed to explore — fully interactive below.</p>
-    <div class="dmock rv">
-      <div class="dbar">
-        <div class="dusr">
-          <div class="dav">JM</div>
-          <div><div class="dnm">Jorge M.</div><div class="dpr" data-i18n="dash_proto">GLP-1 · WEEK 14</div></div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="bg" style="font-size:11px;padding:6px 12px" onclick="exportPDF()" data-i18n="dash_export">↓ Export PDF</button>
-          <button class="bp" style="font-size:11px;padding:6px 12px" onclick="logSession()" data-i18n="dash_log">+ Log session</button>
-        </div>
-      </div>
-      <div class="dbody">
-        <div class="dkpis">
-          <div class="dk"><div class="dkv" id="dv0">78.4<span>kg</span></div><div class="dkd dn" id="dd0">▼ 1.2 from last</div><div class="dkn" data-i18n="m_weight">Body Weight</div></div>
-          <div class="dk"><div class="dkv" id="dv1">34.1<span>kg</span></div><div class="dkd up" id="dd1">▲ 0.3 from last</div><div class="dkn" data-i18n="m_muscle">Skeletal Muscle</div></div>
-          <div class="dk"><div class="dkv" id="dv2">19.8<span>%</span></div><div class="dkd up" id="dd2">▼ 0.6% from last</div><div class="dkn" data-i18n="m_fat">Body Fat %</div></div>
-          <div class="dk"><div class="dkv" id="dv3">7<span>/20</span></div><div class="dkd up" id="dd3">▼ 1 level</div><div class="dkn" data-i18n="m_visceral">Visceral Fat</div></div>
-        </div>
-        <div class="dchw">
-          <div class="dchead">
-            <span class="dct" data-i18n="dash_prog">Progress — last 6 months</span>
-            <div style="display:flex;gap:14px">
-              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--gray2);font-family:var(--mono)"><div style="width:14px;height:2px;background:rgba(255,255,255,.7);border-radius:1px"></div><span data-i18n="l_weight">WEIGHT</span></div>
-              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--gray2);font-family:var(--mono)"><div style="width:14px;height:2px;background:var(--blue);border-radius:1px"></div><span data-i18n="l_muscle">MUSCLE</span></div>
-              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--gray2);font-family:var(--mono)"><div style="width:14px;height:2px;background:var(--red);border-radius:1px;opacity:.8"></div><span data-i18n="l_fat">FAT %</span></div>
-            </div>
-          </div>
-          <div id="dcw"><canvas id="dc"></canvas></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- PDF -->
 <section class="pdfbg" id="pdf">
   <div class="inn">
     <p class="s-eye rv" data-i18n="pdf_lbl">Progress report</p>
@@ -404,38 +457,45 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
   </div>
 </section>
 
+<!-- PRICING -->
 <section class="pribg" id="pricing">
   <div class="inn" style="text-align:center">
     <p class="s-eye rv" data-i18n="price_lbl">Simple pricing</p>
-    <h2 class="s-title rv" style="margin:0 auto" data-i18n="price_title">Start free.<br>Stay in control.</h2>
-    <p class="s-sub rv" style="margin:14px auto 0" data-i18n="price_sub">7-day free trial on both plans. No commitment until you're convinced.</p>
+    <h2 class="s-title rv" style="margin:0 auto" data-i18n="price_title">7 days free.<br>Then simple.</h2>
+    <p class="s-sub rv" style="margin:14px auto 0" data-i18n="price_sub">Full access for 7 days, no charge. No commitment until you're convinced.</p>
     <div class="ptog rv">
       <span class="tl" data-i18n="price_mo">Monthly</span>
       <div class="tog" id="btog" onclick="toggleBill()"><div class="tok"></div></div>
       <span class="tl" data-i18n="price_yr">Annual</span>
-      <span class="spill" data-i18n="price_save">Save 40%</span>
+      <span class="spill" data-i18n="price_save">Save 77%</span>
+    </div>
+    <!-- Discount banner shown when annual toggle ON -->
+    <div class="disc-banner" id="disc-banner">
+      <h3>🎉 Unlock 77% off</h3>
+      <p>Pay $7.99 once — full year access. That's $0.67/month.</p>
     </div>
     <div class="pcards rv">
       <div class="pcard">
         <div class="pcn" data-i18n="plan1">Monthly</div>
-        <div class="pcp"><sup>$</sup><span id="mp">2.90</span><sub data-i18n="per_mo">/mo</sub></div>
-        <div class="pceq" id="meq" data-i18n="mo_bill">Billed monthly</div>
+        <div class="pcp"><sup>$</sup><span id="mp">2.90</span><sub>/mo</sub></div>
+        <div class="pceq" data-i18n="mo_bill">Billed monthly · cancel anytime</div>
         <ul class="pcfl"><li data-i18n="f1">Unlimited session logs</li><li data-i18n="f2">Full progress chart</li><li data-i18n="f3">PDF export</li><li data-i18n="f4">All protocol tags</li><li data-i18n="f5">Metric delta cards</li></ul>
-        <a href="#" class="bg" style="width:100%;text-align:center;display:block;font-size:13px" data-i18n="cta">Start free trial</a>
+        <button class="btn-wb" style="width:100%;text-align:center;display:block;font-size:13px;padding:12px" data-i18n="cta">Start free trial</button>
       </div>
       <div class="pcard feat">
         <div class="fbadge" data-i18n="bv">Best Value</div>
         <div class="pcn" data-i18n="plan2">Annual</div>
-        <div class="pcp" style="color:var(--blue4)"><sup>$</sup><span id="ap">1.74</span><sub data-i18n="per_mo">/mo</sub></div>
-        <div class="pceq" data-i18n="yr_bill">$20.88 billed annually</div>
+        <div class="pcp" style="color:var(--white)"><sup>$</sup><span id="ap">7.99</span><sub>/yr</sub></div>
+        <div class="pceq" data-i18n="yr_bill">$0.67/month · billed once · 77% off</div>
         <ul class="pcfl"><li data-i18n="f1">Unlimited session logs</li><li data-i18n="f2">Full progress chart</li><li data-i18n="f3">PDF export</li><li data-i18n="f4">All protocol tags</li><li data-i18n="f5">Metric delta cards</li></ul>
-        <a href="#" class="bp" style="width:100%;text-align:center;display:block;font-size:13px" data-i18n="cta">Start free trial</a>
+        <button class="btn-w" style="width:100%;text-align:center;display:block;font-size:13px;padding:12px" data-i18n="cta">Start free trial</button>
         <p class="pcnote" data-i18n="yr_note">Annual plan is non-refundable after purchase.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- FAQ -->
 <section class="faqbg" id="faq">
   <div class="inn">
     <p class="s-eye rv" data-i18n="faq_lbl">Questions</p>
@@ -454,29 +514,173 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 48px
       </div>
       <p data-i18n="foot_tag">Body composition intelligence for serious protocols.</p>
     </div>
-    <div class="fcol"><h4 data-i18n="foot_prod">Product</h4><ul><li><a href="#metrics" data-i18n="nav_metrics">Metrics</a></li><li><a href="#dashboard" data-i18n="nav_dashboard">Dashboard</a></li><li><a href="#pdf" data-i18n="pdf_lbl">Reports</a></li><li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li></ul></div>
-    <div class="fcol"><h4 data-i18n="foot_proto">Protocols</h4><ul><li><a href="#protocols">GLP-1</a></li><li><a href="#protocols" data-i18n="foot_pep">Peptides</a></li><li><a href="#protocols" data-i18n="foot_gym">Gym</a></li><li><a href="#protocols" data-i18n="foot_rec">Recomposition</a></li></ul></div>
-    <div class="fcol"><h4 data-i18n="foot_legal">Legal</h4><ul><li><a href="#" data-i18n="foot_priv">Privacy Policy</a></li><li><a href="#" data-i18n="foot_terms">Terms of Use</a></li><li><a href="#" data-i18n="foot_ref">Refund Policy</a></li></ul></div>
+    <div class="fcol"><h4>Product</h4><ul><li><a href="#metrics">Metrics</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+    <div class="fcol"><h4>Protocols</h4><ul><li><a href="#protocols">GLP-1</a></li><li><a href="#protocols">Peptides</a></li><li><a href="#protocols">Gym</a></li><li><a href="#protocols">Recomposition</a></li></ul></div>
+    <div class="fcol"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">Refund Policy</a></li></ul></div>
   </div>
   <div class="fbot">
-    <p data-i18n="foot_copy">© 2026 Strata Health Inc. All rights reserved.</p>
-    <div class="fls"><a href="#" data-i18n="foot_priv">Privacy</a><a href="#" data-i18n="foot_terms">Terms</a></div>
+    <p>© 2026 Strata Health Inc. All rights reserved.</p>
+    <div class="fls"><a href="#">Privacy</a><a href="#">Terms</a></div>
   </div>
 </footer>
 
+</div><!-- /main-page -->
+
+<!-- ══ LOGIN PAGE ══════════════════════════════════════════════════════════ -->
+<div id="login-page" class="page">
+  <div id="login-view">
+    <div style="position:absolute;top:24px;left:24px;cursor:pointer" onclick="showPage('main-page')">
+      <span style="font-size:12px;color:var(--gray3);font-family:var(--mono);letter-spacing:.06em">← Back</span>
+    </div>
+    <div class="login-box">
+      <div class="login-logo">
+        <svg viewBox="0 0 533 400" fill="none"><path d="M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z" fill="white"/><path d="M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z" fill="white"/><path d="M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z" fill="white"/></svg>
+        <span>STRATA</span>
+      </div>
+      <div class="demo-hint">Demo: use <span>demo@strata.app</span> / <span>strata2026</span></div>
+      <h2 class="login-title">Welcome back.</h2>
+      <p class="login-sub">Sign in to your dashboard</p>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="login-email" type="email" placeholder="you@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="login-pass" type="password" placeholder="••••••••">
+      </div>
+      <button class="login-btn" onclick="doLogin()">Sign in →</button>
+      <div class="login-footer">Don't have an account? <a href="#">Start free trial</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD PAGE ══════════════════════════════════════════════════════ -->
+<div id="dash-page" class="page">
+  <nav class="dash-nav">
+    <div class="dash-logo" onclick="showPage('main-page')">
+      <svg viewBox="0 0 533 400" style="height:22px;width:auto" fill="none"><path d="M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z" fill="white"/><path d="M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z" fill="white"/><path d="M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z" fill="white"/></svg>
+      <span style="font-family:var(--font);font-weight:700;font-size:13px;letter-spacing:.14em">STRATA</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:11px;color:var(--gray3);font-family:var(--mono)">GLP-1 · WEEK 14</span>
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">JM</div>
+      <button class="btn-wb" style="font-size:11px;padding:7px 14px" onclick="showPage('main-page')">← Back to site</button>
+    </div>
+  </nav>
+  <div class="dash-body-wrap">
+    <div class="dash-greeting">
+      <h1>Good morning, Jorge.</h1>
+      <p>Last scan: May 1, 2026 · GLP-1 Protocol · Week 14</p>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="dash-kpis">
+      <div class="dk2"><div class="dk2-val">78.4<span>kg</span></div><div class="dk2-delta dn">▼ 1.2 from last session</div><div class="dk2-name">Body Weight</div></div>
+      <div class="dk2"><div class="dk2-val">34.1<span>kg</span></div><div class="dk2-delta up">▲ 0.3 from last session</div><div class="dk2-name">Skeletal Muscle</div></div>
+      <div class="dk2"><div class="dk2-val">19.8<span>%</span></div><div class="dk2-delta up">▼ 0.6% from last session</div><div class="dk2-name">Body Fat %</div></div>
+      <div class="dk2"><div class="dk2-val">7<span>/20</span></div><div class="dk2-delta up">▼ 1 level from last</div><div class="dk2-name">Visceral Fat</div></div>
+    </div>
+
+    <!-- Chart + Sessions -->
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dash-card-title">Progress — 6 months</div>
+        <div style="display:flex;gap:16px;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--gray3);font-family:var(--mono)"><div style="width:14px;height:2px;background:rgba(255,255,255,.65);border-radius:1px"></div>WEIGHT</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--gray3);font-family:var(--mono)"><div style="width:14px;height:2px;background:var(--blue);border-radius:1px"></div>MUSCLE</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--gray3);font-family:var(--mono)"><div style="width:14px;height:2px;background:var(--red);border-radius:1px;opacity:.8"></div>FAT %</div>
+        </div>
+        <div id="dp-chart"><canvas id="dpc"></canvas></div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-title">Session History</div>
+        <div class="session-list">
+          <div class="sess-row"><div><div class="sess-date">May 1, 2026</div><div class="sess-tag" style="margin-top:4px">GLP-1 W14</div></div><div class="sess-vals"><div>78.4 kg · 19.8%</div><div class="sess-delta up">▲ Muscle +0.3</div></div></div>
+          <div class="sess-row"><div><div class="sess-date">Apr 3, 2026</div><div class="sess-tag" style="margin-top:4px">GLP-1 W10</div></div><div class="sess-vals"><div>79.6 kg · 20.4%</div><div class="sess-delta up">▲ Muscle +0.2</div></div></div>
+          <div class="sess-row"><div><div class="sess-date">Mar 5, 2026</div><div class="sess-tag" style="margin-top:4px">GLP-1 W6</div></div><div class="sess-vals"><div>81.2 kg · 21.8%</div><div class="sess-delta dn">▼ Muscle −0.1</div></div></div>
+          <div class="sess-row"><div><div class="sess-date">Feb 4, 2026</div><div class="sess-tag" style="margin-top:4px">GLP-1 W2</div></div><div class="sess-vals"><div>83.0 kg · 23.1%</div><div class="sess-delta" style="color:var(--gray3)">Baseline</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload new scan -->
+    <div class="dash-card" style="margin-bottom:20px">
+      <div class="dash-card-title">Upload New Scan Results</div>
+      <p style="font-size:13px;color:var(--gray3);font-weight:300;margin-bottom:0">Upload your scan PDF or photo — AI will detect and extract all metrics automatically.</p>
+      <div class="upload-area" onclick="document.getElementById('pdf-upload').click()">
+        <input type="file" id="pdf-upload" accept=".pdf,image/*" onchange="handleUpload(event)">
+        <div class="upload-icon">📄</div>
+        <div class="upload-title">Drop your scan results here</div>
+        <div class="upload-sub">PDF, JPG or PNG · Max 10MB</div>
+        <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('pdf-upload').click()">Choose file</button>
+      </div>
+      <div id="upload-status" style="display:none;margin-top:16px;background:var(--bg4);border:1px solid var(--border2);border-radius:10px;padding:16px;font-family:var(--mono);font-size:12px;color:var(--gray2)"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="dash-actions">
+      <button class="btn-w" style="font-size:12px" onclick="exportPDF()">↓ Download PDF Report</button>
+      <button class="btn-wb" style="font-size:12px" onclick="showPage('main-page')">← Back to site</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
-// ── I18N ───────────────────────────────────────────────────────────────────
+// PAGE NAVIGATION
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='dash-page') initDashChart();
+}
+
+// LOGIN
+function doLogin(){
+  const e=document.getElementById('login-email').value;
+  const p=document.getElementById('login-pass').value;
+  if(e==='demo@strata.app'&&p==='strata2026'){showPage('dash-page');}
+  else{alert('Use demo@strata.app / strata2026 to access the demo dashboard.');}
+}
+
+// PDF UPLOAD
+function handleUpload(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const status=document.getElementById('upload-status');
+  status.style.display='block';
+  status.innerHTML='⟳ Analyzing scan with AI...';
+  setTimeout(()=>{
+    status.innerHTML=`✓ Detected: <span style="color:var(--white)">Body Composition Scan</span><br><br>
+    Weight: <span style="color:var(--white)">77.8 kg</span> &nbsp;|&nbsp;
+    Muscle: <span style="color:var(--blue4)">34.4 kg</span> &nbsp;|&nbsp;
+    Fat %: <span style="color:var(--white)">19.1%</span> &nbsp;|&nbsp;
+    Visceral: <span style="color:var(--white)">6/20</span><br><br>
+    <span style="color:rgba(255,255,255,.4)">Review above data then click Save to add this session.</span><br><br>
+    <button onclick="saveSession()" style="background:#fff;color:#000;border:none;padding:9px 20px;border-radius:980px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;">Save session</button>`;
+  },2200);
+}
+function saveSession(){
+  document.getElementById('upload-status').innerHTML='✓ Session saved! Dashboard updated.';
+  setTimeout(()=>{document.getElementById('upload-status').style.display='none';},2000);
+}
+
+// PDF EXPORT
+function exportPDF(){
+  const b=event.target;b.textContent='⟳ Generating...';
+  setTimeout(()=>{b.textContent='↓ Download PDF Report';alert('PDF report generated (demo)');},1500);
+}
+
+// I18N (condensed)
 const T={
-en:{ann:'GLP-1 Users: Protect Your Muscle While The Weight Comes Off — <a href="#pricing">Start Free Trial →</a>',nav_metrics:'Metrics',nav_how:'How it works',nav_protocols:'Protocols',nav_dashboard:'Dashboard',nav_pricing:'Pricing',nav_login:'Log in',nav_start:'Start free',hero_eye:'Body Composition Intelligence',hero_title:'Know every<br><em>layer</em><br>of your body.',hero_sub:'Track muscle, fat, and water across every scan. Built for GLP-1 users, peptide protocols, and serious body recomposition.',hero_cta1:'Start 7-day free trial',hero_cta2:'See the dashboard',scroll:'Scroll',metrics_lbl:'Quality-grade tracking',metrics_title:'Every metric<br>that matters.',metrics_sub:'Log your results after each scan. Strata tracks the numbers your doctor, coach, and body actually care about.',m_weight:'Body Weight',m_muscle:'Skeletal Muscle',m_fat:'Body Fat %',m_water:'Total Body Water',m_visceral:'Visceral Fat',m_score:'Scan Score',chart_lbl:'Progress visualization',chart_title:'Watch the<br>lines cross.',chart_sub:'The moment your muscle line holds while fat drops — that\'s your protocol working. Hover any line to isolate it with a glow effect.',l_weight:'WEIGHT',l_muscle:'MUSCLE',l_fat:'FAT %',t_all:'ALL',how_lbl:'How it works',how_title:'Three steps<br>to clarity.',s1t:'Get your scan',s1b:'Visit any quality body composition facility. Complete your scan and collect your results.',s2t:'Log your numbers',s2b:'Enter your metrics into Strata in under 2 minutes. Tag your protocol, add notes, done.',s3t:'Track the change',s3b:'Watch your composition evolve over time. Export a premium PDF report whenever you need it.',proto_lbl:'Built for every protocol',proto_title:'Your body,<br>your protocol.',p1t:'Ozempic / Wegovy / Mounjaro',p1b:'The #1 fear on GLP-1s is losing muscle alongside fat. Strata shows you exactly what\'s changing — so you can protect your lean mass while the weight drops.',p2t:'AOD-9604 · CJC-1295 · BPC-157',p2b:'Peptide cycles demand precise tracking to validate results. Log each phase, track recomposition markers, and see what\'s actually moving in your stack.',p3t:'Bulking & Cutting',p3b:'Track your phases with precision. See if your bulk is clean or dirty. Confirm your cut is hitting fat and not muscle.',p4t:'Body Recomposition',p4b:'Gaining muscle while losing fat simultaneously is the hardest thing to track. Strata makes the impossible visible through your data.',dash_lbl:'Live dashboard',dash_title:'Your data.<br>Always on.',dash_sub:'No account needed to explore — fully interactive below.',dash_proto:'GLP-1 · WEEK 14',dash_export:'↓ Export PDF',dash_log:'+ Log session',dash_prog:'Progress — last 6 months',pdf_lbl:'Progress report',pdf_title:'One tap.<br>Full report.',pdf_body:'Designed to replace the cluttered scan printout. Minimal, readable, yours. Generated on-demand — nothing stored.',pdf_f1:'Summary stats with all-time deltas',pdf_f2:'Full 3-line progress chart embedded',pdf_f3:'Complete session history table',pdf_f4:'Protocol notes per session',pdf_f5:'First scan vs. latest comparison',price_lbl:'Simple pricing',price_title:'Start free.<br>Stay in control.',price_sub:'7-day free trial on both plans. No commitment until you\'re convinced.',price_mo:'Monthly',price_yr:'Annual',price_save:'Save 40%',plan1:'Monthly',plan2:'Annual',per_mo:'/mo',mo_bill:'Billed monthly',yr_bill:'$20.88 billed annually',f1:'Unlimited session logs',f2:'Full progress chart',f3:'PDF export',f4:'All protocol tags',f5:'Metric delta cards',cta:'Start free trial',bv:'Best Value',yr_note:'Annual plan is non-refundable after purchase.',faq_lbl:'Questions',faq_title:'Got questions?',foot_tag:'Body composition intelligence for serious protocols.',foot_prod:'Product',foot_proto:'Protocols',foot_pep:'Peptides',foot_gym:'Gym',foot_rec:'Recomposition',foot_legal:'Legal',foot_priv:'Privacy Policy',foot_terms:'Terms of Use',foot_ref:'Refund Policy',foot_copy:'© 2026 Strata Health Inc. All rights reserved.',
-faqs:[['Do I need a specific device?','No. Strata works with any quality body composition assessment. You simply log the numbers from your results printout.'],['How often should I scan?','Most protocols benefit from scanning every 4–6 weeks. More frequent scans can reflect hydration variance rather than true composition change.'],['Is my data private?','Yes. Your data is encrypted, never sold, and only accessible by you. PDF exports are generated on-demand and not stored on our servers.'],['Can I cancel anytime?','Monthly plans can be cancelled anytime and you retain access until the period ends. Annual plans are non-refundable after purchase.'],['What\'s included in the free trial?','Full access to all features for 7 days. No charge until the trial ends. Card required to start.']],
-peptides:['GLP-1','Ozempic','Wegovy','Mounjaro','Tirzepatide','Semaglutide','AOD-9604','CJC-1295','BPC-157','Ipamorelin','Tesamorelin','HGH Fragment','GHRP-6','Hexarelin','TB-500','Retatrutide']},
-es:{ann:'Usuarios GLP-1: protege tu músculo mientras el peso baja — <a href="#pricing">Prueba gratis →</a>',nav_metrics:'Métricas',nav_how:'Cómo funciona',nav_protocols:'Protocolos',nav_dashboard:'Dashboard',nav_pricing:'Precios',nav_login:'Ingresar',nav_start:'Comenzar',hero_eye:'Inteligencia de Composición Corporal',hero_title:'Conoce cada<br><em>capa</em><br>de tu cuerpo.',hero_sub:'Rastrea músculo, grasa y agua en cada escáner. Para GLP-1, péptidos y recomposición seria.',hero_cta1:'Prueba gratis 7 días',hero_cta2:'Ver el dashboard',scroll:'Bajar',metrics_lbl:'Seguimiento de calidad',metrics_title:'Cada métrica<br>que importa.',metrics_sub:'Registra tus resultados después de cada análisis. Strata rastrea los números que tu médico, coach y cuerpo necesitan.',m_weight:'Peso Corporal',m_muscle:'Masa Muscular',m_fat:'% Grasa Corporal',m_water:'Agua Corporal',m_visceral:'Grasa Visceral',m_score:'Score del Análisis',chart_lbl:'Visualización de progreso',chart_title:'Observa las<br>líneas cruzarse.',chart_sub:'El momento en que tu línea de músculo se mantiene mientras la grasa baja — eso es tu protocolo funcionando.',l_weight:'PESO',l_muscle:'MÚSCULO',l_fat:'% GRASA',t_all:'TODO',how_lbl:'Cómo funciona',how_title:'Tres pasos<br>a la claridad.',s1t:'Hazte el análisis',s1b:'Visita cualquier centro de composición corporal. Completa tu análisis y guarda los resultados.',s2t:'Registra tus números',s2b:'Ingresa tus métricas en Strata en menos de 2 minutos. Etiqueta tu protocolo, agrega notas, listo.',s3t:'Rastrea el cambio',s3b:'Observa cómo evoluciona tu composición. Exporta un reporte PDF premium cuando lo necesites.',proto_lbl:'Para cada protocolo',proto_title:'Tu cuerpo,<br>tu protocolo.',p1t:'Ozempic / Wegovy / Mounjaro',p1b:'El miedo #1 en GLP-1s es perder músculo junto a la grasa. Strata te muestra exactamente qué está cambiando para proteger tu masa magra.',p2t:'AOD-9604 · CJC-1295 · BPC-157',p2b:'Los ciclos de péptidos requieren seguimiento preciso. Registra cada fase y ve qué está funcionando realmente en tu stack.',p3t:'Volumen & Definición',p3b:'Rastrea tus fases con precisión. Comprueba que tu volumen es limpio y que tu definición ataque grasa, no músculo.',p4t:'Recomposición Corporal',p4b:'Ganar músculo mientras pierdes grasa simultáneamente es lo más difícil de rastrear. Strata lo hace visible.',dash_lbl:'Dashboard en vivo',dash_title:'Tus datos.<br>Siempre activos.',dash_sub:'Sin cuenta para explorar — completamente interactivo abajo.',dash_proto:'GLP-1 · SEMANA 14',dash_export:'↓ Exportar PDF',dash_log:'+ Nueva sesión',dash_prog:'Progreso — últimos 6 meses',pdf_lbl:'Reporte de progreso',pdf_title:'Un toque.<br>Reporte completo.',pdf_body:'Diseñado para reemplazar la impresión desordenada del análisis. Minimal, legible, tuyo. Generado bajo demanda.',pdf_f1:'Estadísticas resumen con deltas',pdf_f2:'Gráfico de 3 líneas integrado',pdf_f3:'Historial completo de sesiones',pdf_f4:'Notas de protocolo por sesión',pdf_f5:'Primer análisis vs. último',price_lbl:'Precios simples',price_title:'Comienza gratis.<br>Mantén el control.',price_sub:'Prueba de 7 días en ambos planes. Sin compromiso hasta que estés convencido.',price_mo:'Mensual',price_yr:'Anual',price_save:'Ahorra 40%',plan1:'Mensual',plan2:'Anual',per_mo:'/mes',mo_bill:'Facturado mensualmente',yr_bill:'$20.88 facturado anualmente',f1:'Sesiones ilimitadas',f2:'Gráfico completo',f3:'Exportación PDF',f4:'Etiquetas de protocolo',f5:'Tarjetas delta',cta:'Comenzar prueba gratis',bv:'Mejor Valor',yr_note:'El plan anual no es reembolsable tras la compra.',faq_lbl:'Preguntas',faq_title:'¿Tienes dudas?',foot_tag:'Inteligencia de composición corporal para protocolos serios.',foot_prod:'Producto',foot_proto:'Protocolos',foot_pep:'Péptidos',foot_gym:'Gym',foot_rec:'Recomposición',foot_legal:'Legal',foot_priv:'Política de Privacidad',foot_terms:'Términos de Uso',foot_ref:'Política de Reembolso',foot_copy:'© 2026 Strata Health Inc. Todos los derechos reservados.',
-faqs:[['¿Necesito un dispositivo específico?','No. Strata funciona con cualquier análisis de composición corporal de calidad. Solo registras los números de tus resultados.'],['¿Con qué frecuencia escanearme?','La mayoría de protocolos se benefician de un análisis cada 4-6 semanas. Más frecuente puede mostrar variación de hidratación.'],['¿Mis datos son privados?','Sí. Datos cifrados, nunca vendidos, solo accesibles por ti. Los PDF se generan bajo demanda y no se almacenan.'],['¿Puedo cancelar cuando quiera?','Planes mensuales: cancelas cuando quieras y conservas acceso hasta el fin del período. Planes anuales no son reembolsables.'],['¿Qué incluye la prueba gratuita?','Acceso completo 7 días. Sin cargo hasta que termine. Se requiere tarjeta.']],
-peptides:['GLP-1','Ozempic','Wegovy','Mounjaro','Tirzepatida','Semaglutida','AOD-9604','CJC-1295','BPC-157','Ipamorelina','Tesamorelina','Fragmento HGH','GHRP-6','Hexarelina','TB-500','Retratrutida']},
-fr:{ann:'Utilisateurs GLP-1 : protégez votre muscle pendant la perte de poids — <a href="#pricing">Essai gratuit →</a>',nav_metrics:'Métriques',nav_how:'Comment ça marche',nav_protocols:'Protocoles',nav_dashboard:'Tableau de bord',nav_pricing:'Tarifs',nav_login:'Connexion',nav_start:'Commencer',hero_eye:'Intelligence en Composition Corporelle',hero_title:'Connaissez chaque<br><em>couche</em><br>de votre corps.',hero_sub:'Suivez muscles, graisses et eau à chaque scan. Conçu pour GLP-1, protocoles peptidiques et recomposition sérieuse.',hero_cta1:'Essai gratuit 7 jours',hero_cta2:'Voir le tableau de bord',scroll:'Défiler',metrics_lbl:'Suivi de qualité',metrics_title:'Chaque métrique<br>qui compte.',metrics_sub:'Enregistrez vos résultats après chaque scan. Strata suit les chiffres qui comptent pour votre médecin, coach et corps.',m_weight:'Poids Corporel',m_muscle:'Masse Musculaire',m_fat:'% Masse Grasse',m_water:'Eau Corporelle',m_visceral:'Graisse Viscérale',m_score:'Score du Scan',chart_lbl:'Visualisation',chart_title:'Regardez les<br>lignes se croiser.',chart_sub:'Le moment où votre ligne musculaire tient pendant que la graisse baisse — c\'est votre protocole qui fonctionne.',l_weight:'POIDS',l_muscle:'MUSCLE',l_fat:'% GRAISSE',t_all:'TOUT',how_lbl:'Comment ça marche',how_title:'Trois étapes<br>vers la clarté.',s1t:'Faites votre scan',s1b:'Rendez-vous dans un centre de composition corporelle. Effectuez votre analyse et conservez les résultats.',s2t:'Entrez vos chiffres',s2b:'Saisissez vos métriques dans Strata en moins de 2 minutes. Étiquetez, notez, terminé.',s3t:'Suivez le changement',s3b:'Observez l\'évolution de votre composition. Exportez un rapport PDF premium quand vous en avez besoin.',proto_lbl:'Pour chaque protocole',proto_title:'Votre corps,<br>votre protocole.',p1t:'Ozempic / Wegovy / Mounjaro',p1b:'La peur #1 avec les GLP-1 est de perdre du muscle avec la graisse. Strata vous montre exactement ce qui change pour protéger votre masse maigre.',p2t:'AOD-9604 · CJC-1295 · BPC-157',p2b:'Les cycles peptidiques nécessitent un suivi précis. Enregistrez chaque phase et voyez ce qui fonctionne vraiment dans votre stack.',p3t:'Prise de masse & Sèche',p3b:'Suivez vos phases avec précision. Vérifiez que votre prise de masse est propre et que la sèche cible la graisse, pas le muscle.',p4t:'Recomposition Corporelle',p4b:'Gagner du muscle tout en perdant de la graisse est la chose la plus difficile à suivre. Strata le rend visible.',dash_lbl:'Tableau de bord en direct',dash_title:'Vos données.<br>Toujours actives.',dash_sub:'Aucun compte requis — entièrement interactif ci-dessous.',dash_proto:'GLP-1 · SEMAINE 14',dash_export:'↓ Exporter PDF',dash_log:'+ Nouvelle session',dash_prog:'Progression — 6 derniers mois',pdf_lbl:'Rapport de progression',pdf_title:'Un clic.<br>Rapport complet.',pdf_body:'Conçu pour remplacer l\'impression surchargée du scan. Minimal, lisible, le vôtre. Généré à la demande.',pdf_f1:'Stats résumées avec deltas',pdf_f2:'Graphique 3 lignes intégré',pdf_f3:'Historique complet des sessions',pdf_f4:'Notes de protocole par session',pdf_f5:'Premier scan vs. dernier',price_lbl:'Tarification simple',price_title:'Commencez gratuitement.<br>Restez en contrôle.',price_sub:'Essai 7 jours sur les deux plans. Aucun engagement avant d\'être convaincu.',price_mo:'Mensuel',price_yr:'Annuel',price_save:'Économisez 40%',plan1:'Mensuel',plan2:'Annuel',per_mo:'/mois',mo_bill:'Facturé mensuellement',yr_bill:'20,88 $ facturé annuellement',f1:'Sessions illimitées',f2:'Graphique complet',f3:'Export PDF',f4:'Étiquettes de protocole',f5:'Cartes delta',cta:'Commencer l\'essai',bv:'Meilleur Choix',yr_note:'Plan annuel non remboursable après achat.',faq_lbl:'Questions',faq_title:'Des questions ?',foot_tag:'Intelligence de composition corporelle pour protocoles sérieux.',foot_prod:'Produit',foot_proto:'Protocoles',foot_pep:'Peptides',foot_gym:'Gym',foot_rec:'Recomposition',foot_legal:'Juridique',foot_priv:'Confidentialité',foot_terms:'Conditions',foot_ref:'Remboursements',foot_copy:'© 2026 Strata Health Inc. Tous droits réservés.',
-faqs:[['Ai-je besoin d\'un appareil spécifique ?','Non. Strata fonctionne avec toute évaluation de composition corporelle de qualité. Vous entrez simplement les chiffres de vos résultats.'],['À quelle fréquence scanner ?','La plupart des protocoles bénéficient d\'un scan toutes les 4-6 semaines. Plus fréquent peut montrer une variance d\'hydratation.'],['Mes données sont-elles privées ?','Oui. Données cryptées, jamais vendues, accessibles uniquement par vous. Les PDF sont générés à la demande et non stockés.'],['Puis-je annuler à tout moment ?','Plans mensuels annulables à tout moment avec accès jusqu\'à la fin de période. Plans annuels non remboursables.'],['Qu\'inclut l\'essai gratuit ?','Accès complet 7 jours. Aucun frais avant la fin. Carte requise.']],
-peptides:['GLP-1','Ozempic','Wegovy','Mounjaro','Tirzépatide','Sémaglutide','AOD-9604','CJC-1295','BPC-157','Ipamoréline','Tésamoréline','Fragment HGH','GHRP-6','Hexaréline','TB-500','Rétatrutide']}
+  en:{ann:'GLP-1 Users: Protect Your Muscle While The Weight Comes Off — <a href="#pricing">Start Free 7 Days →</a>',nav_metrics:'Metrics',nav_how:'How it works',nav_protocols:'Protocols',nav_pricing:'Pricing',nav_login:'Log in',nav_start:'Start free',hero_eye:'Body Composition Intelligence',hero_title:'Know every<br><em>layer</em><br>of your body.',hero_sub:'Track muscle, fat, and water across every scan. Built for GLP-1 users, peptide protocols, and serious body recomposition.',hero_cta1:'Start 7-day free trial',hero_cta2:'See the dashboard',scroll:'Scroll',metrics_lbl:'Quality-grade tracking',metrics_title:'Every metric<br>that matters.',metrics_sub:'Log your results after each scan. Strata tracks the numbers your doctor, coach, and body actually care about.',m_weight:'Body Weight',m_muscle:'Skeletal Muscle',m_fat:'Body Fat %',m_water:'Total Body Water',m_visceral:'Visceral Fat',m_score:'Scan Score',chart_lbl:'Progress visualization',chart_title:'Watch the<br>lines cross.',chart_sub:"The moment your muscle line holds while fat drops — that's your protocol working. Hover any line to isolate it.",l_weight:'WEIGHT',l_muscle:'MUSCLE',l_fat:'FAT %',t_all:'ALL',how_lbl:'How it works',how_title:'Three steps<br>to clarity.',s1t:'Get your scan',s1b:'Visit any quality body composition facility. Complete your scan and collect your results.',s2t:'Log your numbers',s2b:'Enter your metrics into Strata in under 2 minutes. Tag your protocol, add notes, done.',s3t:'Track the change',s3b:'Watch your composition evolve over time. Export a premium PDF report whenever you need it.',proto_lbl:'Built for every protocol',proto_title:'Your body,<br>your protocol.',p1t:'Ozempic / Wegovy / Mounjaro',p1b:"The #1 fear on GLP-1s is losing muscle alongside fat. Strata shows you exactly what's changing — so you can protect your lean mass while the weight drops.",p2t:'AOD-9604 · CJC-1295 · BPC-157',p2b:"Peptide cycles demand precise tracking to validate results. Log each phase, track recomposition markers, and see what's actually moving in your stack.",p3t:'Bulking & Cutting',p3b:'Track your phases with precision. See if your bulk is clean or dirty. Confirm your cut is hitting fat and not muscle.',p4t:'Body Recomposition',p4b:'Gaining muscle while losing fat simultaneously is the hardest thing to track. Strata makes the impossible visible through your data.',pdf_lbl:'Progress report',pdf_title:'One tap.<br>Full report.',pdf_body:'Designed to replace the cluttered scan printout. Minimal, readable, yours. Generated on-demand — nothing stored.',pdf_f1:'Summary stats with all-time deltas',pdf_f2:'Full 3-line progress chart embedded',pdf_f3:'Complete session history table',pdf_f4:'Protocol notes per session',pdf_f5:'First scan vs. latest comparison',price_lbl:'Simple pricing',price_title:'7 days free.<br>Then simple.',price_sub:"Full access for 7 days, no charge. No commitment until you're convinced.",price_mo:'Monthly',price_yr:'Annual',price_save:'Save 77%',plan1:'Monthly',plan2:'Annual',mo_bill:'Billed monthly · cancel anytime',yr_bill:'$0.67/month · billed once · 77% off',f1:'Unlimited session logs',f2:'Full progress chart',f3:'PDF export',f4:'All protocol tags',f5:'Metric delta cards',cta:'Start free trial',bv:'Best Value',yr_note:'Annual plan is non-refundable after purchase.',faq_lbl:'Questions',faq_title:'Got questions?',foot_tag:'Body composition intelligence for serious protocols.',
+    faqs:[["Do I need a specific device?","No. Strata works with any quality body composition assessment. You simply log the numbers from your results."],["How often should I scan?","Most protocols benefit from scanning every 4–6 weeks. More frequent scans can reflect hydration variance."],["Is my data private?","Yes. Your data is encrypted, never sold, and only accessible by you. PDF exports are generated on-demand."],["Can I cancel anytime?","Monthly plans can be cancelled anytime. Annual plans are non-refundable after purchase."],["What's in the free trial?","Full access for 7 days. No charge until the trial ends. Card required to start."]],
+    peptides:['GLP-1','Ozempic','Wegovy','Mounjaro','Tirzepatide','Semaglutide','AOD-9604','CJC-1295','BPC-157','Ipamorelin','Tesamorelin','HGH Fragment','GHRP-6','Hexarelin','TB-500','Retatrutide']},
+  es:{ann:'Usuarios GLP-1: protege tu músculo mientras el peso baja — <a href="#pricing">7 días gratis →</a>',nav_metrics:'Métricas',nav_how:'Cómo funciona',nav_protocols:'Protocolos',nav_pricing:'Precios',nav_login:'Ingresar',nav_start:'Comenzar',hero_eye:'Inteligencia de Composición Corporal',hero_title:'Conoce cada<br><em>capa</em><br>de tu cuerpo.',hero_sub:'Rastrea músculo, grasa y agua en cada análisis. Para GLP-1, péptidos y recomposición seria.',hero_cta1:'Prueba gratis 7 días',hero_cta2:'Ver el dashboard',scroll:'Bajar',metrics_lbl:'Seguimiento de calidad',metrics_title:'Cada métrica<br>que importa.',metrics_sub:'Registra tus resultados después de cada análisis. Strata rastrea los números que tu médico, coach y cuerpo necesitan.',m_weight:'Peso Corporal',m_muscle:'Masa Muscular',m_fat:'% Grasa Corporal',m_water:'Agua Corporal',m_visceral:'Grasa Visceral',m_score:'Score del Análisis',chart_lbl:'Visualización de progreso',chart_title:'Observa las<br>líneas cruzarse.',chart_sub:'El momento en que tu línea de músculo se mantiene mientras la grasa baja — eso es tu protocolo funcionando.',l_weight:'PESO',l_muscle:'MÚSCULO',l_fat:'% GRASA',t_all:'TODO',how_lbl:'Cómo funciona',how_title:'Tres pasos<br>a la claridad.',s1t:'Hazte el análisis',s1b:'Visita cualquier centro de composición corporal. Completa tu análisis y guarda los resultados.',s2t:'Registra tus números',s2b:'Ingresa tus métricas en Strata en menos de 2 minutos. Etiqueta tu protocolo, agrega notas, listo.',s3t:'Rastrea el cambio',s3b:'Observa cómo evoluciona tu composición. Exporta un reporte PDF premium cuando lo necesites.',proto_lbl:'Para cada protocolo',proto_title:'Tu cuerpo,<br>tu protocolo.',p1t:'Ozempic / Wegovy / Mounjaro',p1b:'El miedo #1 en GLP-1s es perder músculo junto a la grasa. Strata te muestra exactamente qué está cambiando.',p2t:'AOD-9604 · CJC-1295 · BPC-157',p2b:'Los ciclos de péptidos requieren seguimiento preciso. Registra cada fase y ve qué está funcionando en tu stack.',p3t:'Volumen & Definición',p3b:'Rastrea tus fases con precisión. Comprueba que tu definición ataque grasa, no músculo.',p4t:'Recomposición Corporal',p4b:'Ganar músculo mientras pierdes grasa simultáneamente es lo más difícil de rastrear. Strata lo hace visible.',pdf_lbl:'Reporte de progreso',pdf_title:'Un toque.<br>Reporte completo.',pdf_body:'Diseñado para reemplazar la impresión del análisis. Minimal, legible, tuyo. Generado bajo demanda.',pdf_f1:'Estadísticas resumen con deltas',pdf_f2:'Gráfico de 3 líneas integrado',pdf_f3:'Historial completo de sesiones',pdf_f4:'Notas de protocolo por sesión',pdf_f5:'Primer análisis vs. último',price_lbl:'Precios simples',price_title:'7 días gratis.<br>Luego, simple.',price_sub:'Acceso completo 7 días, sin cargo. Sin compromiso hasta que estés convencido.',price_mo:'Mensual',price_yr:'Anual',price_save:'Ahorra 77%',plan1:'Mensual',plan2:'Anual',mo_bill:'Facturado mensualmente · cancela cuando quieras',yr_bill:'$0.67/mes · pago único · 77% descuento',f1:'Sesiones ilimitadas',f2:'Gráfico completo',f3:'Exportación PDF',f4:'Etiquetas de protocolo',f5:'Tarjetas delta',cta:'Comenzar prueba gratis',bv:'Mejor Valor',yr_note:'El plan anual no es reembolsable tras la compra.',faq_lbl:'Preguntas',faq_title:'¿Tienes dudas?',foot_tag:'Inteligencia de composición corporal para protocolos serios.',
+    faqs:[['¿Necesito un dispositivo específico?','No. Strata funciona con cualquier análisis de composición corporal de calidad. Solo registras los números.'],['¿Con qué frecuencia escanearme?','La mayoría de protocolos se benefician de un análisis cada 4-6 semanas.'],['¿Mis datos son privados?','Sí. Datos cifrados, nunca vendidos, solo accesibles por ti.'],['¿Puedo cancelar cuando quiera?','Planes mensuales: cancelas cuando quieras. Planes anuales no son reembolsables.'],['¿Qué incluye la prueba gratuita?','Acceso completo 7 días. Sin cargo hasta que termine.']],
+    peptides:['GLP-1','Ozempic','Wegovy','Mounjaro','Tirzepatida','Semaglutida','AOD-9604','CJC-1295','BPC-157','Ipamorelina','Tesamorelina','Fragmento HGH','GHRP-6','Hexarelina','TB-500','Retratrutida']},
+  fr:{ann:'Utilisateurs GLP-1 : protégez votre muscle — <a href="#pricing">7 jours gratuits →</a>',nav_metrics:'Métriques',nav_how:'Comment ça marche',nav_protocols:'Protocoles',nav_pricing:'Tarifs',nav_login:'Connexion',nav_start:'Commencer',hero_eye:'Intelligence en Composition Corporelle',hero_title:'Connaissez chaque<br><em>couche</em><br>de votre corps.',hero_sub:'Suivez muscles, graisses et eau à chaque scan. Pour GLP-1, peptides et recomposition sérieuse.',hero_cta1:'Essai gratuit 7 jours',hero_cta2:'Voir le tableau de bord',scroll:'Défiler',metrics_lbl:'Suivi de qualité',metrics_title:'Chaque métrique<br>qui compte.',metrics_sub:'Enregistrez vos résultats après chaque scan. Strata suit les chiffres essentiels.',m_weight:'Poids Corporel',m_muscle:'Masse Musculaire',m_fat:'% Masse Grasse',m_water:'Eau Corporelle',m_visceral:'Graisse Viscérale',m_score:'Score du Scan',chart_lbl:'Visualisation',chart_title:'Regardez les<br>lignes se croiser.',chart_sub:"Le moment où votre ligne musculaire tient pendant que la graisse baisse — c'est votre protocole qui fonctionne.",l_weight:'POIDS',l_muscle:'MUSCLE',l_fat:'% GRAISSE',t_all:'TOUT',how_lbl:'Comment ça marche',how_title:'Trois étapes<br>vers la clarté.',s1t:'Faites votre scan',s1b:'Rendez-vous dans un centre de composition corporelle. Effectuez votre analyse.',s2t:'Entrez vos chiffres',s2b:'Saisissez vos métriques dans Strata en moins de 2 minutes.',s3t:'Suivez le changement',s3b:"Observez l'évolution de votre composition. Exportez un rapport PDF premium.",proto_lbl:'Pour chaque protocole',proto_title:'Votre corps,<br>votre protocole.',p1t:'Ozempic / Wegovy / Mounjaro',p1b:'La peur #1 avec les GLP-1 est de perdre du muscle. Strata vous montre exactement ce qui change.',p2t:'AOD-9604 · CJC-1295 · BPC-157',p2b:'Les cycles peptidiques nécessitent un suivi précis. Enregistrez chaque phase.',p3t:'Prise de masse & Sèche',p3b:'Suivez vos phases avec précision. Vérifiez que la sèche cible la graisse.',p4t:'Recomposition Corporelle',p4b:"Gagner du muscle tout en perdant de la graisse. Strata le rend visible.",pdf_lbl:'Rapport de progression',pdf_title:'Un clic.<br>Rapport complet.',pdf_body:'Conçu pour remplacer la feuille de résultats surchargée. Minimal, lisible, le vôtre.',pdf_f1:'Stats résumées avec deltas',pdf_f2:'Graphique 3 lignes intégré',pdf_f3:'Historique complet des sessions',pdf_f4:'Notes de protocole par session',pdf_f5:'Premier scan vs. dernier',price_lbl:'Tarification simple',price_title:'7 jours gratuits.<br>Puis simple.',price_sub:"Accès complet 7 jours, sans frais. Aucun engagement avant d'être convaincu.",price_mo:'Mensuel',price_yr:'Annuel',price_save:'Économisez 77%',plan1:'Mensuel',plan2:'Annuel',mo_bill:'Facturé mensuellement · annulable',yr_bill:'0,67 $/mois · paiement unique · -77%',f1:'Sessions illimitées',f2:'Graphique complet',f3:'Export PDF',f4:'Étiquettes de protocole',f5:'Cartes delta',cta:"Commencer l'essai",bv:'Meilleur Choix',yr_note:'Plan annuel non remboursable après achat.',faq_lbl:'Questions',faq_title:'Des questions ?',foot_tag:'Intelligence de composition corporelle pour protocoles sérieux.',
+    faqs:[["Ai-je besoin d'un appareil spécifique ?","Non. Strata fonctionne avec toute évaluation de qualité. Vous entrez simplement les chiffres."],["À quelle fréquence scanner ?","La plupart des protocoles bénéficient d'un scan toutes les 4-6 semaines."],["Mes données sont-elles privées ?","Oui. Données cryptées, jamais vendues, accessibles uniquement par vous."],["Puis-je annuler à tout moment ?","Plans mensuels annulables à tout moment. Plans annuels non remboursables."],["Qu'inclut l'essai gratuit ?","Accès complet 7 jours. Aucun frais avant la fin."]],
+    peptides:['GLP-1','Ozempic','Wegovy','Mounjaro','Tirzépatide','Sémaglutide','AOD-9604','CJC-1295','BPC-157','Ipamoréline','Tésamoréline','Fragment HGH','GHRP-6','Hexaréline','TB-500','Rétatrutide']}
 };
 
 let lang='en';
@@ -500,37 +704,65 @@ function buildTicker(){
 }
 buildTicker();
 
-// HERO PARTICLES
+// ── HERO PARTICLES — Body Layers ──────────────────────────────────────────
 (function(){
   const cv=document.getElementById('hc');
   const cx=cv.getContext('2d');
   let W,H,pts=[];
+
+  // Body silhouette control points for each layer
+  const LAYERS=[
+    // Layer 0: Fat — outer, warm blue, diffuse
+    {name:'fat',col:'#1a4fff',glow:'#4477ff',n:180,yBase:.48,spread:1.0,yRange:.28,sz:[.4,2.2],al:[.06,.28]},
+    // Layer 1: Muscle — mid, bright blue, tighter
+    {name:'muscle',col:'#3388ff',glow:'#66aaff',n:140,yBase:.50,spread:.72,yRange:.18,sz:[.4,1.6],al:[.1,.4]},
+    // Layer 2: Core/bone — center, white-blue, very tight
+    {name:'core',col:'#aaccff',glow:'#ffffff',n:80,yBase:.51,spread:.36,yRange:.10,sz:[.3,1.2],al:[.12,.5]},
+  ];
+
   function init(){
     W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;pts=[];
-    const LAYERS=[
-      {yf:.40,col:'#006AFF',n:100,sp:.50},
-      {yf:.52,col:'#3388FF',n:85,sp:.46},
-      {yf:.63,col:'#0055CC',n:70,sp:.42},
-    ];
-    LAYERS.forEach(l=>{
-      for(let i=0;i<l.n;i++) pts.push({
-        x:W*(0.5-l.sp/2+Math.random()*l.sp),
-        y:H*l.yf+(Math.random()-.5)*68,
-        vx:(Math.random()-.5)*.22,
-        sz:.5+Math.random()*1.7,
-        al:.1+Math.random()*.38,
-        col:l.col,ph:Math.random()*Math.PI*2,sp:.3+Math.random()*.6
-      });
+    LAYERS.forEach((l,li)=>{
+      for(let i=0;i<l.n;i++){
+        const angle=Math.random()*Math.PI*2;
+        const r=Math.random();
+        // Oval shape: wider horizontally
+        const px=CX()+(Math.cos(angle)*r*l.spread*W*.38);
+        const py=H*l.yBase+(Math.sin(angle)*r*l.yRange*H*.5);
+        pts.push({
+          x:px,y:py,ox:px,oy:py,
+          vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.08,
+          sz:l.sz[0]+Math.random()*(l.sz[1]-l.sz[0]),
+          al:l.al[0]+Math.random()*(l.al[1]-l.al[0]),
+          col:l.col,glow:l.glow,
+          ph:Math.random()*Math.PI*2,
+          sp:.2+Math.random()*.5,
+          layer:li,
+          drift:Math.random()<.15, // some particles drift further for atmosphere
+        });
+      }
     });
   }
+  function CX(){return W/2;}
   window.addEventListener('resize',init);init();
+
   let f=0;
   function draw(){
     f++;cx.clearRect(0,0,W,H);
+    // Draw glow halos first (back to front)
     pts.forEach(p=>{
-      p.x+=p.vx;
-      p.y+=Math.sin(f*.007*p.sp+p.ph)*.14;
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      const wobbleX=Math.sin(f*.006*p.sp+p.ph)*(p.drift?12:3);
+      const wobbleY=Math.cos(f*.005*p.sp+p.ph+1)*(p.drift?8:2);
+      p.x=p.ox+wobbleX;p.y=p.oy+wobbleY;
+      // Glow halo
+      const grd=cx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.sz*3.5);
+      grd.addColorStop(0,p.glow+Math.floor(p.al*.35*255).toString(16).padStart(2,'0'));
+      grd.addColorStop(1,'transparent');
+      cx.beginPath();cx.arc(p.x,p.y,p.sz*3.5,0,Math.PI*2);
+      cx.fillStyle=grd;cx.fill();
+    });
+    // Draw particles on top
+    pts.forEach(p=>{
       cx.beginPath();cx.arc(p.x,p.y,p.sz,0,Math.PI*2);
       cx.fillStyle=p.col+Math.floor(p.al*255).toString(16).padStart(2,'0');
       cx.fill();
@@ -549,99 +781,60 @@ const ALL={
 };
 function slice(m){if(!m)return ALL;const n=m+1;return{labels:ALL.labels.slice(-n),weight:ALL.weight.slice(-n),muscle:ALL.muscle.slice(-n),fat:ALL.fat.slice(-n)}}
 
-// Glow plugin
-const glowPlugin={
-  id:'glow',
-  afterDatasetsDraw(chart){
-    if(chart._glowDs===undefined)return;
-    const{ctx}=chart;const ds=chart._glowDs;
-    const dataset=chart.data.datasets[ds];
-    const meta=chart.getDatasetMeta(ds);
-    if(!meta.visible)return;
-    ctx.save();
-    ctx.shadowColor=dataset.borderColor;ctx.shadowBlur=22;
-    ctx.lineWidth=3.5;ctx.strokeStyle=dataset.borderColor;ctx.globalAlpha=.9;
-    ctx.beginPath();
-    meta.data.forEach((pt,i)=>{if(i===0)ctx.moveTo(pt.x,pt.y);else ctx.lineTo(pt.x,pt.y)});
-    ctx.stroke();
-    // Second pass brighter
-    ctx.shadowBlur=36;ctx.lineWidth=1.5;ctx.globalAlpha=.5;
-    ctx.beginPath();
-    meta.data.forEach((pt,i)=>{if(i===0)ctx.moveTo(pt.x,pt.y);else ctx.lineTo(pt.x,pt.y)});
-    ctx.stroke();
-    ctx.restore();
-  }
-};
+const glowPlugin={id:'glow',afterDatasetsDraw(chart){
+  if(chart._gDs===undefined)return;
+  const{ctx}=chart;const ds=chart._gDs;
+  const dataset=chart.data.datasets[ds];
+  const meta=chart.getDatasetMeta(ds);
+  if(!meta.visible)return;
+  ctx.save();
+  ctx.shadowColor=dataset.borderColor;ctx.shadowBlur=24;ctx.lineWidth=3.5;ctx.strokeStyle=dataset.borderColor;ctx.globalAlpha=.9;
+  ctx.beginPath();meta.data.forEach((pt,i)=>{if(i===0)ctx.moveTo(pt.x,pt.y);else ctx.lineTo(pt.x,pt.y)});ctx.stroke();
+  ctx.shadowBlur=40;ctx.lineWidth=1.5;ctx.globalAlpha=.45;
+  ctx.beginPath();meta.data.forEach((pt,i)=>{if(i===0)ctx.moveTo(pt.x,pt.y);else ctx.lineTo(pt.x,pt.y)});ctx.stroke();
+  ctx.restore();
+}};
 Chart.register(glowPlugin);
 
 function mkChart(id,data,sm){
-  return new Chart(document.getElementById(id),{
-    type:'line',
-    data:{
-      labels:data.labels,
-      datasets:[
-        {label:'Weight',data:data.weight,borderColor:'rgba(255,255,255,0.65)',borderWidth:sm?1.5:2,pointRadius:sm?2:3.5,pointBackgroundColor:'#fff',tension:.4,yAxisID:'y'},
-        {label:'Muscle',data:data.muscle,borderColor:'#006AFF',borderWidth:sm?1.5:2,pointRadius:sm?2:3.5,pointBackgroundColor:'#006AFF',tension:.4,yAxisID:'y'},
-        {label:'Fat %', data:data.fat,  borderColor:'rgba(255,107,107,0.7)',borderWidth:sm?1:1.5,borderDash:[4,3],pointRadius:sm?2:3,pointBackgroundColor:'#ff6b6b',tension:.4,yAxisID:'y2'},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{display:false},
-        tooltip:{
-          backgroundColor:'rgba(13,13,13,.96)',borderColor:'#2a2a2a',borderWidth:1,
-          titleColor:'#555',titleFont:{family:"'IBM Plex Mono'",size:10},
-          bodyColor:'#eee',bodyFont:{family:"'IBM Plex Mono'",size:11},padding:11,
-          callbacks:{label:ctx=>{const u=ctx.datasetIndex===2?'%':' kg';return` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}${u}`}}
-        }
-      },
+  return new Chart(document.getElementById(id),{type:'line',
+    data:{labels:data.labels,datasets:[
+      {label:'Weight',data:data.weight,borderColor:'rgba(255,255,255,.6)',borderWidth:sm?1.5:2,pointRadius:sm?2:3.5,pointBackgroundColor:'#fff',tension:.4,yAxisID:'y'},
+      {label:'Muscle',data:data.muscle,borderColor:'#006AFF',borderWidth:sm?1.5:2,pointRadius:sm?2:3.5,pointBackgroundColor:'#006AFF',tension:.4,yAxisID:'y'},
+      {label:'Fat %', data:data.fat,  borderColor:'rgba(255,107,107,.7)',borderWidth:sm?1:1.5,borderDash:[4,3],pointRadius:sm?2:3,pointBackgroundColor:'#ff6b6b',tension:.4,yAxisID:'y2'},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(10,10,10,.97)',borderColor:'#1e1e1e',borderWidth:1,titleColor:'#444',titleFont:{family:"'IBM Plex Mono'",size:10},bodyColor:'#eee',bodyFont:{family:"'IBM Plex Mono'",size:11},padding:11,callbacks:{label:ctx=>{const u=ctx.datasetIndex===2?'%':' kg';return` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}${u}`}}}},
       scales:{
-        x:{grid:{color:'rgba(255,255,255,0.035)'},ticks:{color:'#3a3a3a',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:9}},
-        y:{position:'left',grid:{color:'rgba(255,255,255,0.035)'},ticks:{color:'#3a3a3a',font:{family:"'IBM Plex Mono'",size:10},callback:v=>v+' kg'}},
-        y2:{position:'right',grid:{display:false},ticks:{color:'rgba(255,107,107,.35)',font:{family:"'IBM Plex Mono'",size:10},callback:v=>v+'%'}},
-      }
-    }
-  });
+        x:{grid:{color:'rgba(255,255,255,.03)'},ticks:{color:'#333',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:9}},
+        y:{position:'left',grid:{color:'rgba(255,255,255,.03)'},ticks:{color:'#333',font:{family:"'IBM Plex Mono'",size:10},callback:v=>v+' kg'}},
+        y2:{position:'right',grid:{display:false},ticks:{color:'rgba(255,107,107,.3)',font:{family:"'IBM Plex Mono'",size:10},callback:v=>v+'%'}},
+      }}});
 }
 
 let MC=mkChart('mc',slice(3),false);
-let DC=mkChart('dc',slice(6),true);
 
-function glowLine(ds){MC._glowDs=ds;MC.update('none')}
-function clearGlow(){MC._glowDs=undefined;MC.update('none')}
-
+function glowLine(ds){MC._gDs=ds;MC.update('none')}
+function clearGlow(){MC._gDs=undefined;MC.update('none')}
 function setR(m,btn){
-  document.querySelectorAll('.ct').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  const d=slice(m);
-  MC.data.labels=d.labels;
-  MC.data.datasets[0].data=d.weight;
-  MC.data.datasets[1].data=d.muscle;
-  MC.data.datasets[2].data=d.fat;
-  MC.update();
+  document.querySelectorAll('.ct').forEach(t=>t.classList.remove('active'));btn.classList.add('active');
+  const d=slice(m);MC.data.labels=d.labels;MC.data.datasets[0].data=d.weight;MC.data.datasets[1].data=d.muscle;MC.data.datasets[2].data=d.fat;MC.update();
 }
 
-// DASHBOARD
-let sc=0;
-function logSession(){
-  sc++;
-  const w=(78.1-sc*.4).toFixed(1),m=(34.2+sc*.1).toFixed(1),f=(19.3-sc*.25).toFixed(1);
-  document.getElementById('dv0').innerHTML=`${w}<span>kg</span>`;
-  document.getElementById('dv1').innerHTML=`${m}<span>kg</span>`;
-  document.getElementById('dv2').innerHTML=`${f}<span>%</span>`;
-  alert(`Session logged!\nWeight: ${w}kg  |  Muscle: ${m}kg  |  Fat: ${f}%\n(demo)`);
-}
-function exportPDF(){
-  const b=event.target;const o=b.innerHTML;
-  b.textContent='⟳ Generating...';
-  setTimeout(()=>{b.innerHTML=T[lang].dash_export||o;alert('PDF report generated (demo)');},1400);
+// Dashboard chart (init only when shown)
+let dpChart=null;
+function initDashChart(){
+  if(dpChart)return;
+  dpChart=mkChart('dpc',slice(6),true);
 }
 
-// BILLING
+// BILLING TOGGLE
 let annual=false;
-function toggleBill(){annual=!annual;document.getElementById('btog').classList.toggle('on',annual)}
+function toggleBill(){
+  annual=!annual;
+  document.getElementById('btog').classList.toggle('on',annual);
+  document.getElementById('disc-banner').classList.toggle('show',annual);
+}
 
 // FAQ
 function buildFAQ(){
@@ -656,8 +849,11 @@ function tFaq(i){document.getElementById('fq'+i).classList.toggle('open')}
 buildFAQ();
 
 // REVEAL
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.07});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.06});
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Enter key on login
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('login-page').classList.contains('active'))doLogin();});
 </script>
 </body>
 </html>
