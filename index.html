@@ -1,1010 +1,479 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Strata — AI body composition analysis</title>
+<!-- ============================================================
+     BONNELL / ABOUT US PAGE (desktop + responsive)
+     Redesigned on the 805 V2 design language: Inter, token scale,
+     dash eyebrow, soft radii, white veils between tonal blocks.
+     Shopify-safe: every rule hangs off #bnl-about so the theme can't
+     overwrite it (or be overwritten).
+     Paste into: Custom Liquid block on the About page, or a .liquid section.
 
-<meta property="og:title" content="You're losing weight… but are you losing muscle?">
-<meta property="og:description" content="Strata uses AI to analyze your body composition over time and show you what you're actually losing — fat, muscle, or both.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Strata">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="You're losing weight… but are you losing muscle?">
-<meta name="twitter:description" content="Strata uses AI to analyze your body composition over time.">
+     TEAM PORTRAITS
+     The grid holds 12 cards (6 / 4 / 3 / 2 across, so no row ever orphans).
+     The current images are placeholders at mixed sizes and crops; the frames
+     just fill with object-fit:cover. Once the final headshots land, shot at one
+     size with a shared eye level, they drop straight in with no per-card CSS.
+     Cards 11 and 12 are awaiting photos and are marked PLACEHOLDER below.
+     ============================================================ -->
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 533 400'%3E%3Crect width='533' height='400' fill='%23080808'/%3E%3Cpath d='M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z' fill='white'/%3E%3Cpath d='M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z' fill='white'/%3E%3Cpath d='M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z' fill='white'/%3E%3C/svg%3E">
-
-<!-- Ultrahuman uses a custom font but Inter is the closest publicly available match -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,300;1,14..32,400&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..900;1,14..32,400..900&display=swap" rel="stylesheet">
 
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#080808;--bg2:#0a0a0a;--bg3:#0e0e0e;--bg4:#141414;--bg5:#1a1a1a;
-  --border:#1a1a1a;--border2:#252525;--border3:#333;
-  --white:#fff;--gray1:#f5f5f5;--gray2:#999;--gray3:#555;--gray4:#333;
-  --blue:#006AFF;--blue2:#0055CC;--blue4:#3388FF;--blue5:#66a6ff;
-  --bluedim:rgba(0,106,255,.1);
-  --red:#ff5555;--red2:#D94040;
-  --font:'Inter',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',monospace;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--white);font-family:var(--font);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#1e1e1e;border-radius:2px}
+  #bnl-about,
+  #bnl-about *,
+  #bnl-about *::before,
+  #bnl-about *::after { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
-/* PAGES */
-.page{display:none}.page.active{display:block}
+  #bnl-about {
+    /* ---- tokens, lifted from 805 V2 ---- */
+    --yellow:#FEB600;
+    --ink:#1d1d1f;
+    --ink-2:#5d5d63;
+    --ink-3:#86868b;
+    --black:#0a0a0c;
+    --paper:#ffffff;
+    --soft:#f5f5f7;
+    --hair:rgba(29,29,31,.12);
 
-/* ANNOUNCE */
-.ann{background:var(--blue2);text-align:center;padding:10px 20px;font-size:12px;font-weight:500;color:#fff;letter-spacing:.01em}
-.ann a{color:#fff;text-decoration:underline;margin-left:6px;opacity:.85}
+    --r-lg:28px;
+    --r-md:18px;
 
-/* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer}
-.nav-logo svg{height:22px;width:auto}
-.nav-wm{font-family:var(--font);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--white)}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:var(--gray2);text-decoration:none;font-size:13px;font-weight:400;transition:color .15s}
-.nav-links a:hover{color:var(--white)}
-.nav-r{display:flex;align-items:center;gap:12px}
-.lang-sw{display:flex;gap:1px;background:var(--bg4);border:1px solid var(--border2);border-radius:6px;padding:2px}
-.lb{background:none;border:none;color:var(--gray3);font-family:var(--font);font-size:11px;font-weight:500;padding:4px 9px;border-radius:4px;cursor:pointer;transition:all .15s}
-.lb.active{background:var(--bg5);color:var(--white)}
+    --pad-x:clamp(22px, 4.5vw, 48px);
+    --sect:clamp(96px, 11vw, 168px);
+    --sect-half:clamp(48px, 5.5vw, 84px);
+    --gap:clamp(16px, 1.6vw, 22px);
 
-/* BUTTONS */
-.btn-w{background:#fff;color:#000;font-family:var(--font);font-size:13px;font-weight:600;padding:10px 22px;border:none;border-radius:980px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
-.btn-w:hover{background:#e8e8e8;transform:scale(1.02)}
-.btn-wb{background:none;color:#fff;font-family:var(--font);font-size:13px;font-weight:400;padding:9px 21px;border:1px solid rgba(255,255,255,.2);border-radius:980px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
-.btn-wb:hover{border-color:rgba(255,255,255,.5)}
-.btn-blue{background:var(--blue);color:#fff;font-family:var(--font);font-size:14px;font-weight:600;padding:14px 36px;border:none;border-radius:980px;cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-blue:hover{background:var(--blue2);transform:scale(1.02)}
+    --w-wide:1440px;
+    --w-body:1120px;
 
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 40px 80px;overflow:hidden;background:var(--bg)}
-#hc{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
-.hi{position:relative;z-index:2;max-width:820px}
+    --ease:cubic-bezier(.22,1,.36,1);
+    --font:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
 
-/* Ultrahuman-style: mixed case, heavy weight, tight tracking */
-.hero-q{font-size:clamp(38px,5.5vw,70px);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--white);margin-bottom:20px}
-.hero-q em{font-style:italic;color:var(--gray2);font-weight:300}
+    font-family:var(--font);
+    font-size:17px; line-height:1.6;
+    color:var(--ink); background:var(--paper);
+    margin:0; width:100%; overflow-x:hidden;
+  }
+  #bnl-about img, #bnl-about video { display:block; max-width:100%; }
+  #bnl-about p, #bnl-about h1, #bnl-about h2, #bnl-about figure, #bnl-about figcaption { margin:0; padding:0; }
 
-.hero-sub{font-size:17px;font-weight:400;color:rgba(255,255,255,.55);max-width:520px;margin:0 auto 16px;line-height:1.65}
-.hero-glp{font-size:13px;font-weight:500;color:var(--blue4);margin-bottom:44px;letter-spacing:.01em}
-.hero-glp span{border:1px solid rgba(0,106,255,.3);border-radius:980px;padding:4px 12px;background:rgba(0,106,255,.06)}
+  /* ===== shared bits ===== */
+  #bnl-about .bnl-eyebrow {
+    font-size:13px; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-3);
+  }
+  #bnl-about .bnl-eyebrow::before {
+    content:""; display:inline-block; width:18px; height:3px; border-radius:2px;
+    background:var(--yellow); margin-right:10px; vertical-align:2px;
+  }
+  #bnl-about .bnl-bigtitle {
+    font-size:clamp(34px, 4vw, 64px);
+    font-weight:700; letter-spacing:-.03em; line-height:1.04;
+    max-width:24ch; text-transform:uppercase;
+  }
+  #bnl-about .bnl-body {
+    font-size:clamp(17px, 1.4vw, 21px); line-height:1.5;
+    color:var(--ink-2); max-width:62ch;
+  }
+  #bnl-about .bnl-body strong { font-weight:600; color:var(--ink); }
+  #bnl-about .bnl-body + .bnl-body { margin-top:20px; }
 
-.h-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
-.hero-trust{font-size:12px;color:var(--gray3);font-family:var(--mono)}
+  #bnl-about .bnl-sec { max-width:var(--w-body); margin:0 auto; padding:var(--sect) var(--pad-x); }
+  #bnl-about .bnl-sec--tight { padding-top:var(--sect-half); padding-bottom:var(--sect-half); }
 
-.h-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px}
-.s-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,.15),transparent);animation:pulse 2.2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.9}}
+  /* veils: media dissolves into the page instead of cropping against it */
+  #bnl-about .bnl-veil { position:absolute; left:0; right:0; z-index:2; pointer-events:none; }
+  #bnl-about .bnl-veil--btm-white {
+    bottom:0; height:clamp(90px,16vh,220px);
+    background:linear-gradient(to top,#fff 0%,rgba(255,255,255,.74) 38%,rgba(255,255,255,0) 100%);
+  }
 
-/* TICKER */
-.tick-wrap{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0;overflow:hidden;position:relative}
-.tick-wrap::before,.tick-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
-.tick-wrap::before{left:0;background:linear-gradient(to right,var(--bg2),transparent)}
-.tick-wrap::after{right:0;background:linear-gradient(to left,var(--bg2),transparent)}
-.tick-track{display:flex;animation:tick 36s linear infinite;white-space:nowrap}
-.tick-item{display:inline-flex;align-items:center;padding:0 28px;font-size:11px;font-weight:400;letter-spacing:.18em;color:var(--gray3);text-transform:uppercase;font-family:var(--mono)}
-@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  /* reveal on scroll */
+  #bnl-about [data-rv] {
+    opacity:0; transform:translateY(18px);
+    transition:opacity .9s var(--ease), transform .9s var(--ease);
+    transition-delay:var(--rvd, 0s);
+  }
+  #bnl-about [data-rv].rv { opacity:1; transform:none; }
 
-/* SECTIONS */
-section{padding:100px 48px}
-.inn{max-width:1060px;margin:0 auto}
-.s-eye{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--blue4);margin-bottom:14px;font-family:var(--mono)}
-/* Ultrahuman style: sentence case, large, tight */
-.s-title{font-family:var(--font);font-size:clamp(34px,4.5vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.0;margin-bottom:14px}
-.s-sub{font-size:16px;color:var(--gray2);font-weight:400;max-width:480px;line-height:1.7}
+  /* ===== HERO ===== */
+  #bnl-about .bnl-hero {
+    position:relative;
+    min-height:min(88svh, 720px);
+    display:flex; align-items:flex-end;
+    padding:60px var(--pad-x) clamp(72px,12vh,120px);
+    background-size:cover; background-position:center 25%;
+    color:#fff;
+    /* full-bleed breakout: ignore whatever padding the theme puts on the page */
+    width:100vw; max-width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+  #bnl-about .bnl-hero::after {
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,0) 42%, rgba(0,0,0,.55) 100%);
+  }
+  #bnl-about .bnl-hero__inner {
+    position:relative; z-index:3;
+    max-width:var(--w-wide); margin:0 auto; width:100%;
+  }
+  #bnl-about .bnl-hero .bnl-eyebrow { color:rgba(255,255,255,.86); }
+  #bnl-about .bnl-hero__title {
+    font-size:clamp(44px, 6.4vw, 92px);
+    font-weight:700; letter-spacing:-.035em; line-height:.98;
+    margin:16px 0 18px; color:#fff;
+  }
+  #bnl-about .bnl-hero__sub {
+    font-size:clamp(17px, 1.5vw, 22px); line-height:1.45;
+    color:rgba(255,255,255,.9); max-width:34ch;
+  }
 
-/* AI INSIGHTS SECTION */
-.ai-bg{background:var(--bg)}
-.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
-.ai-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:22px 24px;position:relative;overflow:hidden;transition:border-color .2s}
-.ai-card:hover{border-color:var(--border3)}
-.ai-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.ai-card.warn::before{background:linear-gradient(to right,#E8860A,transparent)}
-.ai-card.ok::before{background:linear-gradient(to right,var(--blue),transparent)}
-.ai-card.alert::before{background:linear-gradient(to right,var(--red),transparent)}
-.ai-card.neutral::before{background:linear-gradient(to right,var(--gray3),transparent)}
-.ai-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:980px;margin-bottom:14px;font-family:var(--mono)}
-.ai-badge.warn{color:#E8860A;background:rgba(232,134,10,.08);border:1px solid rgba(232,134,10,.2)}
-.ai-badge.ok{color:var(--blue4);background:var(--bluedim);border:1px solid rgba(0,106,255,.2)}
-.ai-badge.alert{color:var(--red);background:rgba(255,85,85,.08);border:1px solid rgba(255,85,85,.2)}
-.ai-badge.neutral{color:var(--gray2);background:rgba(255,255,255,.04);border:1px solid var(--border2)}
-.ai-insight{font-size:16px;font-weight:600;line-height:1.3;margin-bottom:8px;letter-spacing:-.01em}
-.ai-sub{font-size:13px;color:var(--gray2);line-height:1.6;font-weight:400}
-.ai-meta{font-size:11px;color:var(--gray3);font-family:var(--mono);margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
-.ai-wide{grid-column:1/-1}
-.ai-model-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--gray3);font-family:var(--mono);letter-spacing:.08em;margin-top:6px}
-.ai-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+  /* ===== STORY MEDIA ROW: video centred, stills flanking, one shared height ===== */
+  #bnl-about .bnl-storyrow {
+    max-width:var(--w-wide); margin:0 auto; padding:0 var(--pad-x);
+    display:grid; grid-template-columns:.66fr 1.4fr .66fr;
+    gap:var(--gap); align-items:stretch;
+  }
+  /* the side stills set the row height via their 3:4 ratio;
+     the video cell stretches to match and crops to fill */
+  #bnl-about .bnl-storyrow__side {
+    aspect-ratio:3/4; overflow:hidden; background:var(--soft);
+    border-radius:var(--r-lg);
+  }
+  #bnl-about .bnl-storyrow__side img { width:100%; height:100%; object-fit:cover; }
+  #bnl-about .bnl-storyrow__video {
+    overflow:hidden; background:var(--black); border-radius:var(--r-lg);
+  }
+  #bnl-about .bnl-storyrow__video video { width:100%; height:100%; object-fit:cover; }
 
-/* WEEKLY REPORT */
-.wr-bg{background:var(--bg3)}
-.wr-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:28px 32px;margin-top:48px;max-width:580px}
-.wr-week{font-size:11px;font-weight:500;letter-spacing:.14em;color:var(--gray3);font-family:var(--mono);text-transform:uppercase;margin-bottom:16px}
-.wr-rows{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
-.wr-row{display:flex;justify-content:space-between;align-items:center}
-.wr-label{font-size:14px;color:var(--gray2);font-weight:400}
-.wr-val{font-family:var(--mono);font-size:14px;font-weight:500}
-.wr-bar-wrap{width:140px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin:0 12px}
-.wr-bar{height:100%;border-radius:2px}
-.wr-alert{background:rgba(232,134,10,.08);border:1px solid rgba(232,134,10,.2);border-radius:10px;padding:12px 16px;display:flex;align-items:flex-start;gap:10px}
-.wr-alert-icon{font-size:14px;flex-shrink:0;margin-top:1px}
-.wr-alert-text{font-size:13px;color:rgba(232,134,10,.9);line-height:1.5}
+  /* ===== MISSION: a quiet band, statement set large ===== */
+  #bnl-about .bnl-mission { background:var(--soft); }
+  #bnl-about .bnl-mission__inner {
+    max-width:var(--w-body); margin:0 auto;
+    padding:var(--sect) var(--pad-x);
+  }
+  #bnl-about .bnl-mission__statement {
+    margin-top:18px;
+    font-size:clamp(24px, 2.8vw, 40px); line-height:1.24;
+    letter-spacing:-.02em; font-weight:600; color:var(--ink);
+    max-width:24ch;
+  }
 
-/* METRICS */
-.m-context{font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--gray2);margin-bottom:40px;max-width:520px;line-height:1.2}
-.m-context em{color:var(--white);font-style:normal}
-.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.mc{background:var(--bg2);padding:28px 22px;transition:background .2s}
-.mc:hover{background:var(--bg3)}
-.mi{width:26px;height:26px;border-radius:5px;background:var(--bg4);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:11px;color:rgba(255,255,255,.3)}
-.mv{font-family:var(--mono);font-size:28px;font-weight:500;color:var(--white);margin-bottom:2px;line-height:1}
-.mv span{font-size:12px;color:var(--gray3);margin-left:2px;font-weight:400}
-.md{font-family:var(--mono);font-size:11px;font-weight:500;margin-bottom:8px}
-.up{color:var(--blue4)}.dn{color:var(--red)}
-.mn{font-size:10px;color:var(--gray3);letter-spacing:.05em;text-transform:uppercase;font-family:var(--mono)}
+  /* ===== VALUES (immersive black) ===== */
+  #bnl-about .bnl-values { background:var(--black); color:#fff; }
+  #bnl-about .bnl-values__inner {
+    max-width:var(--w-body); margin:0 auto;
+    padding:var(--sect) var(--pad-x);
+  }
+  #bnl-about .bnl-values .bnl-eyebrow { color:rgba(255,255,255,.62); }
+  #bnl-about .bnl-values .bnl-bigtitle { color:#fff; margin:16px 0 26px; max-width:20ch; }
+  #bnl-about .bnl-values .bnl-body { color:rgba(255,255,255,.72); }
 
-/* CHART */
-.chbg{background:var(--bg3)}
-.chbox{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:44px}
-.chtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px}
-.chleg{display:flex;gap:18px}
-.li{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--gray2);font-family:var(--mono);cursor:pointer;transition:all .2s;padding:3px 8px;border-radius:4px}
-.li:hover{background:rgba(255,255,255,.04)}
-.ld{width:16px;height:2px;border-radius:1px;flex-shrink:0}
-.ctabs{display:flex;gap:3px}
-.ct{background:none;border:1px solid var(--border2);color:var(--gray3);font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;padding:5px 11px;border-radius:4px;cursor:pointer;transition:all .15s}
-.ct.active{background:var(--bg4);color:var(--white);border-color:var(--border3)}
-#mcw{position:relative;height:280px}
+  /* ===== TEAM ===== */
+  #bnl-about .bnl-team { max-width:var(--w-wide); margin:0 auto; padding:var(--sect) var(--pad-x); }
+  #bnl-about .bnl-team__head { margin-bottom:var(--sect-half); }
+  #bnl-about .bnl-team__head .bnl-bigtitle { margin-top:16px; font-size:clamp(28px,3.2vw,48px); }
+  /* 12 portraits. 6/4/3/2 all divide evenly, so no row ever orphans */
+  #bnl-about .bnl-team__grid {
+    display:grid; grid-template-columns:repeat(6,1fr); gap:var(--gap);
+  }
 
-/* HOW */
-.hwbg{background:var(--bg)}
-.steps{display:flex;gap:0;margin-top:48px;border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.stp{flex:1;padding:36px 26px;background:var(--bg2);border-right:1px solid var(--border);transition:background .2s}
-.stp:last-child{border-right:none}
-.stp:hover{background:var(--bg3)}
-.sn{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.2em;margin-bottom:18px;display:block}
-.stp h3{font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:9px;line-height:1.2}
-.stp p{font-size:13px;color:var(--gray2);line-height:1.65;font-weight:400}
+  #bnl-about .bnl-portrait { position:relative; }
+  /* The frame is the image window: it owns the ratio and the clipping.
+     The headshots are being re-shot at one size with a shared eye level, so the
+     frame just fills with cover. Nothing here is per-person. */
+  #bnl-about .bnl-portrait__frame {
+    position:relative; aspect-ratio:3/4; overflow:hidden;
+    background:var(--soft); border-radius:var(--r-md);
+  }
+  #bnl-about .bnl-portrait img {
+    width:100%; height:100%;
+    object-fit:cover; object-position:50% 30%;
+    filter:grayscale(1) contrast(1.03);
+  }
+  #bnl-about .bnl-portrait::after {
+    content:""; position:absolute; inset:0; z-index:1;
+    border-radius:var(--r-md);
+    background:linear-gradient(180deg, rgba(10,10,12,0) 40%, rgba(10,10,12,.85) 100%);
+  }
+  #bnl-about .bnl-portrait__meta {
+    position:absolute; left:16px; right:16px; bottom:16px; z-index:2;
+    color:#fff;
+  }
+  /* Name is always two lines (first / last), so it can't reflow the card. */
+  #bnl-about .bnl-portrait__name {
+    font-size:17px; font-weight:700; line-height:1.08; letter-spacing:.01em;
+    text-transform:uppercase; margin-bottom:7px;
+  }
+  /* Two lines reserved: the longest roles wrap, and without this the name
+     above them would sit higher on some cards than others. */
+  #bnl-about .bnl-portrait__role {
+    font-size:12px; font-weight:500; line-height:1.3; letter-spacing:.02em;
+    color:var(--yellow); min-height:2.6em;
+  }
 
-/* PROTOCOLS */
-.pbg{background:var(--bg2)}
-.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:44px}
-.pc{background:var(--bg2);padding:32px 26px;transition:background .2s}
-.pc:hover{background:#0c0c0c}
-.ptag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border-radius:980px;margin-bottom:14px;font-family:var(--mono);border:1px solid}
-.tg{border-color:rgba(0,106,255,.35);color:var(--blue4);background:rgba(0,106,255,.06)}
-.tp{border-color:rgba(102,166,255,.35);color:var(--blue5);background:rgba(102,166,255,.06)}
-.tgm{border-color:rgba(255,85,85,.35);color:var(--red);background:rgba(255,85,85,.06)}
-.tr{border-color:rgba(255,200,80,.35);color:#ffcc44;background:rgba(255,200,80,.06)}
-.pc h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;line-height:1.15}
-.pc p{font-size:13px;color:var(--gray2);line-height:1.65;font-weight:400}
-.pchips{display:flex;gap:5px;flex-wrap:wrap;margin-top:14px}
-.pch{font-size:10px;color:var(--gray3);background:var(--bg4);border:1px solid var(--border2);padding:3px 8px;border-radius:4px;font-family:var(--mono)}
+  /* ===== CLOSING ===== */
+  #bnl-about .bnl-closing { background:var(--paper); }
+  #bnl-about .bnl-closing__inner {
+    max-width:var(--w-body); margin:0 auto;
+    padding:0 var(--pad-x) var(--sect);
+  }
+  #bnl-about .bnl-closing__title {
+    margin-top:16px;
+    font-size:clamp(38px, 5.2vw, 78px);
+    font-weight:700; letter-spacing:-.035em; line-height:.98;
+    text-transform:uppercase; color:var(--ink);
+  }
 
-/* PRICING */
-.pribg{background:var(--bg)}
-.price-above{font-size:14px;color:var(--gray2);text-align:center;margin-top:16px;font-weight:400}
-.price-above strong{color:var(--white);font-weight:600}
-.ptog{display:flex;align-items:center;gap:12px;margin:36px auto 0;width:fit-content}
-.tl{font-size:12px;color:var(--gray2);font-family:var(--mono)}
-.tog{width:42px;height:22px;background:var(--bg4);border:1px solid var(--border2);border-radius:11px;position:relative;cursor:pointer;transition:background .2s}
-.tog.on{background:var(--blue)}
-.tok{position:absolute;top:3px;left:3px;width:14px;height:14px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.4)}
-.tog.on .tok{transform:translateX(20px)}
-.spill{font-size:10px;font-weight:600;color:var(--blue4);background:var(--bluedim);padding:3px 9px;border-radius:980px;letter-spacing:.08em;font-family:var(--mono);border:1px solid rgba(0,106,255,.2)}
-.disc-banner{display:none;background:linear-gradient(135deg,rgba(0,85,204,.4),rgba(0,64,153,.4));border:1px solid rgba(0,106,255,.3);border-radius:12px;padding:16px 22px;margin:20px auto 0;max-width:420px;text-align:center}
-.disc-banner.show{display:block}
-.disc-banner h3{font-size:20px;font-weight:700;color:#fff;letter-spacing:-.02em;margin-bottom:3px}
-.disc-banner p{font-size:12px;color:rgba(255,255,255,.6);font-family:var(--mono)}
-.pcards{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:640px;margin:24px auto 0}
-.pcard{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:30px 24px;transition:border-color .2s}
-.pcard.feat{border-color:rgba(255,255,255,.18);position:relative}
-.fbadge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#fff;color:#000;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 14px;border-radius:980px;white-space:nowrap;font-family:var(--mono)}
-.pcn{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gray3);margin-bottom:14px;font-family:var(--mono)}
-.pcp{font-size:48px;font-weight:800;letter-spacing:-.04em;line-height:1}
-.pcp sup{font-size:16px;vertical-align:super;font-weight:400}
-.pcp sub{font-size:12px;color:var(--gray3);font-weight:400}
-.pceq{font-size:11px;color:var(--gray3);margin-top:3px;margin-bottom:18px;font-family:var(--mono)}
-.pcfl{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
-.pcfl li{font-size:12px;color:var(--gray2);display:flex;align-items:center;gap:7px;font-family:var(--mono)}
-.pcfl li::before{content:'';width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.18);flex-shrink:0}
-.pcnote{font-size:10px;color:var(--gray4);margin-top:8px;font-family:var(--mono)}
-.price-below{text-align:center;margin-top:20px;font-size:13px;color:var(--gray3);font-style:italic}
-
-/* FAQ */
-.faqbg{background:var(--bg3)}
-.faql{margin-top:44px;max-width:680px}
-.fqi{border-top:1px solid var(--border)}
-.fqi:last-child{border-bottom:1px solid var(--border)}
-.fqq{width:100%;background:none;border:none;color:var(--white);font-family:var(--font);font-size:15px;font-weight:400;text-align:left;padding:20px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.fa{color:var(--gray3);font-size:18px;transition:transform .2s;flex-shrink:0}
-.fqi.open .fa{transform:rotate(45deg)}
-.fqa{font-size:14px;color:var(--gray2);line-height:1.7;padding-bottom:20px;display:none;font-weight:400}
-.fqi.open .fqa{display:block}
-
-/* FOOTER */
-footer{background:var(--bg);border-top:1px solid var(--border);padding:48px 48px 32px}
-.fwm{font-family:var(--font);font-size:clamp(60px,10vw,140px);font-weight:800;letter-spacing:-.04em;color:#0d0d0d;margin-bottom:24px;line-height:1;user-select:none}
-.ftop{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:36px;margin-bottom:48px}
-.fbrand p{font-size:12px;color:var(--gray3);margin-top:12px;line-height:1.7;max-width:200px;font-weight:400}
-.fcol h4{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gray3);margin-bottom:14px;font-family:var(--mono)}
-.fcol ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.fcol ul a{font-size:12px;color:var(--gray2);text-decoration:none;transition:color .15s;font-weight:400}
-.fcol ul a:hover{color:var(--white)}
-.fbot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:18px;flex-wrap:wrap;gap:10px}
-.fbot p,.fls a{font-size:11px;color:var(--gray3);font-family:var(--mono);text-decoration:none}
-.fls{display:flex;gap:16px}
-
-/* LOGIN */
-#login-page{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px}
-.login-box{width:100%;max-width:380px}
-.login-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:44px}
-.login-logo svg{height:26px}
-.login-logo span{font-family:var(--font);font-weight:700;font-size:15px;letter-spacing:-.01em}
-.login-title{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:5px;text-align:center}
-.login-sub{font-size:13px;color:var(--gray3);font-family:var(--mono);margin-bottom:32px;text-align:center}
-.demo-hint{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;margin-bottom:18px;font-size:11px;color:var(--gray2);font-family:var(--mono);text-align:center}
-.demo-hint span{color:var(--blue4)}
-.form-group{margin-bottom:14px}
-.form-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray3);font-family:var(--mono);margin-bottom:7px;display:block}
-.form-input{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:12px 15px;font-family:var(--font);font-size:14px;color:var(--white);outline:none;transition:border-color .2s}
-.form-input:focus{border-color:rgba(255,255,255,.25)}
-.form-input::placeholder{color:var(--gray3)}
-.login-btn{width:100%;background:#fff;color:#000;font-family:var(--font);font-size:14px;font-weight:700;padding:13px;border:none;border-radius:980px;cursor:pointer;transition:all .2s;margin-top:6px;letter-spacing:-.01em}
-.login-btn:hover{background:#e8e8e8}
-.login-footer{text-align:center;margin-top:20px;font-size:12px;color:var(--gray3);font-family:var(--mono)}
-.login-footer a{color:var(--gray2);text-decoration:none}
-#login-page-inner{position:relative}
-.back-btn{position:absolute;top:-60px;left:0;font-size:12px;color:var(--gray3);font-family:var(--mono);cursor:pointer;letter-spacing:.06em;background:none;border:none;color:var(--gray3)}
-.back-btn:hover{color:var(--gray2)}
-
-/* DASHBOARD */
-#dash-page{background:var(--bg);min-height:100vh}
-.dash-nav{background:rgba(8,8,8,.97);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.dash-body-wrap{padding:28px;max-width:1180px;margin:0 auto}
-.dash-greeting h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:3px}
-.dash-greeting p{font-size:12px;color:var(--gray3);font-family:var(--mono);margin-bottom:24px}
-.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
-.dk2{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:18px 16px}
-.dk2-val{font-family:var(--mono);font-size:26px;font-weight:500;line-height:1;margin-bottom:2px}
-.dk2-val span{font-size:12px;color:var(--gray3)}
-.dk2-delta{font-family:var(--mono);font-size:10px;margin-bottom:7px}
-.dk2-name{font-size:10px;color:var(--gray3);text-transform:uppercase;letter-spacing:.05em;font-family:var(--mono)}
-.dash-grid{display:grid;grid-template-columns:1fr 340px;gap:14px;margin-bottom:16px}
-.dash-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px}
-.dash-card-title{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray3);font-family:var(--mono);margin-bottom:16px}
-#dp-chart{height:200px;position:relative}
-.sess-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
-.sess-row:last-child{border-bottom:none}
-.sess-date{font-size:11px;color:var(--gray3);font-family:var(--mono)}
-.sess-tag{font-size:10px;padding:2px 7px;border-radius:980px;font-family:var(--mono);border:1px solid rgba(0,106,255,.3);color:var(--blue4);background:rgba(0,106,255,.05);margin-top:3px;display:inline-block}
-.sess-vals{font-family:var(--mono);font-size:11px;color:var(--gray2);text-align:right}
-.sess-delta{font-size:10px;margin-top:2px}
-.upload-area{background:var(--bg);border:1px dashed var(--border2);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;margin-top:14px}
-.upload-area:hover{border-color:rgba(255,255,255,.18);background:var(--bg2)}
-.upload-area input{display:none}
-.upload-title{font-size:13px;font-weight:600;margin-bottom:5px}
-.upload-sub{font-size:12px;color:var(--gray3)}
-.upload-btn{display:inline-block;margin-top:12px;background:#fff;color:#000;font-family:var(--font);font-size:12px;font-weight:600;padding:8px 18px;border-radius:980px;cursor:pointer;border:none;transition:background .2s}
-.upload-btn:hover{background:#e8e8e8}
-
-/* REVEAL */
-.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
-.rv.in{opacity:1;transform:translateY(0)}
-
-@media(max-width:900px){
-  nav{padding:0 16px}.nav-links{display:none}
-  section{padding:64px 18px}
-  .mg{grid-template-columns:repeat(2,1fr)}
-  .steps,.pgrid{flex-direction:column}
-  .steps{display:flex}
-  .stp{border-right:none;border-bottom:1px solid var(--border)}
-  .pgrid{grid-template-columns:1fr}
-  .pcards{grid-template-columns:1fr;max-width:340px}
-  .ftop{grid-template-columns:1fr 1fr}
-  .dash-kpis{grid-template-columns:repeat(2,1fr)}
-  .dash-grid{grid-template-columns:1fr}
-  .ai-grid{grid-template-columns:1fr}
-  .hero-q{font-size:clamp(30px,8vw,50px)}
-}
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:1180px) {
+    #bnl-about .bnl-team__grid { grid-template-columns:repeat(4,1fr); }
+  }
+  @media (max-width:900px) {
+    #bnl-about .bnl-hero {
+      min-height:min(84svh, 620px);
+      padding:48px var(--pad-x) clamp(56px,10vh,88px);
+      position:relative; left:50%; right:50%;
+      margin-left:-50vw; margin-right:-50vw;
+    }
+    #bnl-about .bnl-storyrow { grid-template-columns:1fr 1fr; }
+    /* video goes full width on top, stills sit below it */
+    #bnl-about .bnl-storyrow__video { grid-column:1 / -1; order:-1; aspect-ratio:16/9; }
+    #bnl-about .bnl-team__grid { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:640px) {
+    #bnl-about { --pad-x:20px; --r-lg:20px; --r-md:14px; }
+    /* Cards keep the overlay treatment at every width: the name and role stay
+       on the photo, over the gradient. Only the ratio and type step down. */
+    #bnl-about .bnl-team__grid { grid-template-columns:repeat(2,1fr); gap:14px; }
+    #bnl-about .bnl-portrait__frame { aspect-ratio:4/5; }
+    #bnl-about .bnl-portrait__meta { left:12px; right:12px; bottom:12px; }
+    #bnl-about .bnl-portrait__name { font-size:15px; margin-bottom:6px; }
+    #bnl-about .bnl-portrait__role { font-size:11.5px; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    #bnl-about [data-rv] { opacity:1; transform:none; }
+    #bnl-about * { transition:none !important; }
+  }
 </style>
-</head>
-<body>
 
-<!-- ══ LANDING ══════════════════════════════════════════════════════════════ -->
-<div id="main-page" class="page active">
+<div id="bnl-about">
 
-<div class="ann" id="ann">GLP-1 users: see exactly what your body is losing — fat or muscle. <a href="#pricing">Start free →</a></div>
-
-<nav>
-  <div class="nav-logo" onclick="showPage('main-page')">
-    <svg viewBox="0 0 533 400" fill="none"><path d="M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z" fill="white"/><path d="M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z" fill="white"/><path d="M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z" fill="white"/></svg>
-    <span class="nav-wm">Strata</span>
-  </div>
-  <ul class="nav-links">
-    <li><a href="#ai-insights" data-i18n="nav_ai">AI Insights</a></li>
-    <li><a href="#metrics" data-i18n="nav_metrics">Metrics</a></li>
-    <li><a href="#protocols" data-i18n="nav_protocols">Protocols</a></li>
-    <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
-  </ul>
-  <div class="nav-r">
-    <div class="lang-sw">
-      <button class="lb active" onclick="setLang('en')">EN</button>
-      <button class="lb" onclick="setLang('es')">ES</button>
+  <!-- ===== HERO ===== -->
+  <div class="bnl-hero" style="background-image:url('https://cdn.shopify.com/s/files/1/0861/5883/6028/files/260120-BONNELL-DAYTONA-TEST-4276.webp?v=1778256040');">
+    <div class="bnl-hero__inner">
+      <p class="bnl-eyebrow" data-rv>About Bonnell</p>
+      <h1 class="bnl-hero__title" data-rv style="--rvd:.06s">Tuned for epic.</h1>
+      <p class="bnl-hero__sub" data-rv style="--rvd:.12s">Adventure-ready power and performance, perfectly tuned for you.</p>
     </div>
-    <button class="btn-wb" onclick="showPage('login-page')" data-i18n="nav_login">Log in</button>
-    <button class="btn-w" onclick="showPage('login-page')" data-i18n="nav_start">Start free</button>
+    <div class="bnl-veil bnl-veil--btm-white"></div>
   </div>
-</nav>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <canvas id="hc"></canvas>
-  <div class="hi">
-    <h1 class="hero-q" data-i18n="hero_title">You're losing weight…<br>but are you losing <em>muscle?</em></h1>
-    <p class="hero-sub" data-i18n="hero_sub">Strata uses AI to analyze your body composition over time and show you what you're actually losing — fat, muscle, or both.</p>
-    <p class="hero-glp"><span data-i18n="hero_glp">Built for GLP-1 users who want to lose fat — not muscle.</span></p>
-    <div class="h-ctas">
-      <button class="btn-w" onclick="showPage('login-page')" data-i18n="hero_cta1">Start free</button>
-      <button class="btn-wb" onclick="document.getElementById('ai-insights').scrollIntoView({behavior:'smooth'})" data-i18n="hero_cta2">See how it works</button>
+  <!-- ===== OUR STORY ===== -->
+  <section class="bnl-sec">
+    <p class="bnl-eyebrow" data-rv>Our Story</p>
+    <h2 class="bnl-bigtitle" data-rv style="--rvd:.05s; margin:16px 0 26px;">Adventure dynamics.<br>Dynamic adventures.</h2>
+    <p class="bnl-body" data-rv style="--rvd:.1s">Bonnell wasn't born in a boardroom. It was forged by riders who couldn't leave stock bikes alone. We spent years chasing a specific ride feel: the perfect balance between rider and machine. When we couldn't find it, we built it ourselves.</p>
+  </section>
+
+  <!-- ===== STORY MEDIA: video centred, stills flanking ===== -->
+  <div class="bnl-storyrow" data-rv>
+    <div class="bnl-storyrow__side">
+      <img src="https://cdn.shopify.com/s/files/1/0861/5883/6028/files/260120-BONNELL-DAYTONA-TEST-3595_1.webp?v=1778256039" alt="" loading="lazy">
     </div>
-    <p class="hero-trust" data-i18n="hero_trust">7-day free trial · no credit card required to start</p>
+    <div class="bnl-storyrow__video">
+      <video autoplay muted loop playsinline
+             poster="https://cdn.shopify.com/s/files/1/0861/5883/6028/files/260120-BONNELL-DAYTONA-TEST-4276.webp?v=1778256040">
+        <source src="https://ridebonnell.com/cdn/shop/videos/c/vp/862526b9bc06432da3b8d0b0746b83ff/862526b9bc06432da3b8d0b0746b83ff.HD-1080p-4.8Mbps-35719348.mp4?v=0" type="video/mp4">
+      </video>
+    </div>
+    <div class="bnl-storyrow__side">
+      <img src="https://cdn.shopify.com/s/files/1/0861/5883/6028/files/260120-BONNELL-DAYTONA-TEST-3595-_1.webp?v=1778256040" alt="" loading="lazy">
+    </div>
   </div>
-  <div class="h-scroll"><div class="s-line"></div></div>
-</section>
 
-<!-- TICKER -->
-<div class="tick-wrap"><div class="tick-track" id="ticker"></div></div>
+  <!-- ===== STORY, CONTINUED ===== -->
+  <section class="bnl-sec bnl-sec--tight">
+    <p class="bnl-body" data-rv>That obsession became a relentless pursuit of engineering electric motorcycles that inspire confidence, reward exploration, and redefine what's possible off-road.</p>
+  </section>
 
-<!-- AI INSIGHTS SECTION -->
-<section class="ai-bg" id="ai-insights">
-  <div class="inn">
-    <p class="s-eye rv" data-i18n="ai_lbl">AI insights</p>
-    <h2 class="s-title rv" data-i18n="ai_title">Not just data.<br>Interpretation.</h2>
-    <p class="s-sub rv" data-i18n="ai_sub">Every time you upload a scan, Strata's AI reads the numbers and tells you what's actually happening to your body — in plain language.</p>
-    <div class="ai-grid rv">
+  <!-- ===== OUR MISSION ===== -->
+  <div class="bnl-mission">
+    <div class="bnl-mission__inner">
+      <p class="bnl-eyebrow" data-rv>Our Mission</p>
+      <p class="bnl-mission__statement" data-rv style="--rvd:.05s">We exist to equip, inspire, and empower a new generation of riders to charge farther, explore deeper, and leave the noise of the world behind.</p>
+    </div>
+  </div>
 
-      <div class="ai-card alert">
-        <div class="ai-badge alert" data-i18n="badge_alert">⚠ Alert</div>
-        <div class="ai-insight" data-i18n="ai1_title">You lost 3.2 lbs this week — ~40% may be muscle.</div>
-        <div class="ai-sub" data-i18n="ai1_sub">Your fat loss rate slowed while total weight dropped fast. This pattern often indicates muscle loss, especially if protein intake is low or training volume dropped.</div>
-        <div class="ai-meta">
-          <div class="ai-model-tag"><div class="ai-dot"></div><span data-i18n="ai_generated">Generated from your May 1 scan</span></div>
+  <!-- ===== OUR VALUES (immersive black) ===== -->
+  <div class="bnl-values">
+    <div class="bnl-values__inner">
+      <p class="bnl-eyebrow" data-rv>Our Values</p>
+      <h2 class="bnl-bigtitle" data-rv style="--rvd:.05s">Think globally. Innovate every day. Maximize value. Act holistically. Revel in the pursuit.</h2>
+      <p class="bnl-body" data-rv style="--rvd:.1s">These aren't just words. They're how we build our motorcycles and how we work together. Every decision is driven by a commitment to thoughtful engineering, continuous improvement, and creating products that riders can trust wherever adventure takes them.</p>
+    </div>
+  </div>
+
+  <!-- ===== TEAM ===== -->
+  <section class="bnl-team">
+    <div class="bnl-team__head">
+      <p class="bnl-eyebrow" data-rv>Meet Our Team</p>
+      <h2 class="bnl-bigtitle" data-rv style="--rvd:.05s">The crew behind the build.</h2>
+    </div>
+
+    <div class="bnl-team__grid">
+
+      <figure class="bnl-portrait" data-rv>
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/portrait_3.webp?v=1741622990&width=1200" alt="Matthew Wauters" loading="lazy">
         </div>
-      </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Matthew<br>Wauters</p>
+          <p class="bnl-portrait__role">CEO &amp; Founder</p>
+        </figcaption>
+      </figure>
 
-      <div class="ai-card warn">
-        <div class="ai-badge warn" data-i18n="badge_warn">↘ Trend detected</div>
-        <div class="ai-insight" data-i18n="ai2_title">Muscle loss trend detected over last 3 entries.</div>
-        <div class="ai-sub" data-i18n="ai2_sub">Skeletal muscle mass has declined 0.3 kg across your last 3 sessions. On GLP-1, this can accelerate without resistance training and adequate protein — aim for 1.8g/kg bodyweight.</div>
-        <div class="ai-meta">
-          <div class="ai-model-tag"><div class="ai-dot"></div><span data-i18n="ai_generated2">Based on sessions Feb–Apr 2026</span></div>
+      <figure class="bnl-portrait" data-rv style="--rvd:.04s">
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/Jason-Smith.jpg?v=1742233549&width=1200" alt="Jason Smith" loading="lazy">
         </div>
-      </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Jason<br>Smith</p>
+          <p class="bnl-portrait__role">VP Business Development</p>
+        </figcaption>
+      </figure>
 
-      <div class="ai-card ok">
-        <div class="ai-badge ok" data-i18n="badge_ok">✓ Looking good</div>
-        <div class="ai-insight" data-i18n="ai3_title">Fat loss is accelerating. Muscle is holding.</div>
-        <div class="ai-sub" data-i18n="ai3_sub">This is the ideal GLP-1 outcome — your body fat percentage dropped 1.2% while skeletal muscle stayed within ±0.1 kg. Your protein intake and training are working.</div>
-        <div class="ai-meta">
-          <div class="ai-model-tag"><div class="ai-dot"></div><span>Latest session · May 2026</span></div>
+      <figure class="bnl-portrait" data-rv style="--rvd:.08s">
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/Cedric-Heinrich.webp?v=1726367464&width=1200" alt="Cedric Heinrich" loading="lazy">
         </div>
-      </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Cedric<br>Heinrich</p>
+          <p class="bnl-portrait__role">e-MTB Product Manager</p>
+        </figcaption>
+      </figure>
 
-      <div class="ai-card neutral">
-        <div class="ai-badge neutral" data-i18n="badge_neutral">→ Recommendation</div>
-        <div class="ai-insight" data-i18n="ai4_title">Fat loss slowing. Consider adjusting protein intake.</div>
-        <div class="ai-sub" data-i18n="ai4_sub">Your rate of fat loss has decreased 38% over the last 6 weeks. At this plateau, increasing dietary protein by 20–30g/day and adding 2 resistance sessions/week typically restores momentum.</div>
-        <div class="ai-meta">
-          <div class="ai-model-tag"><div class="ai-dot"></div><span>Trend · 6-week analysis</span></div>
+      <figure class="bnl-portrait" data-rv style="--rvd:.12s">
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/CG.png?v=1774532585&width=1200" alt="Christopher Gerardino" loading="lazy">
         </div>
-      </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Christopher<br>Gerardino</p>
+          <p class="bnl-portrait__role">Head of Design</p>
+        </figcaption>
+      </figure>
 
-    </div>
-  </div>
-</section>
-
-<!-- WEEKLY REPORT -->
-<section class="wr-bg" id="weekly">
-  <div class="inn">
-    <p class="s-eye rv" data-i18n="wr_lbl">Weekly AI report</p>
-    <h2 class="s-title rv" data-i18n="wr_title">Your weekly<br>body breakdown.</h2>
-    <p class="s-sub rv" data-i18n="wr_sub">Every week, Strata sends you a breakdown of exactly what changed — and what it means for your protocol.</p>
-    <div class="wr-card rv">
-      <div class="wr-week" data-i18n="wr_week">Week 6 · GLP-1 Protocol · Semaglutide 1mg</div>
-      <div class="wr-rows">
-        <div class="wr-row">
-          <span class="wr-label" data-i18n="wr_weight">Total weight</span>
-          <div style="display:flex;align-items:center;gap:0">
-            <div class="wr-bar-wrap"><div class="wr-bar" style="width:100%;background:rgba(255,255,255,.15)"></div></div>
-            <span class="wr-val dn">↓ 2.1 lbs</span>
-          </div>
+      <figure class="bnl-portrait" data-rv style="--rvd:.16s">
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/Samuel_Hasketh_1.webp?v=1763434153&width=1200" alt="Samuel Hasketh" loading="lazy">
         </div>
-        <div class="wr-row">
-          <span class="wr-label" data-i18n="wr_fat">Fat lost</span>
-          <div style="display:flex;align-items:center;gap:0">
-            <div class="wr-bar-wrap"><div class="wr-bar" style="width:76%;background:var(--blue)"></div></div>
-            <span class="wr-val up">↓ 1.6 lbs</span>
-          </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Samuel<br>Hasketh</p>
+          <p class="bnl-portrait__role">Creative Director</p>
+        </figcaption>
+      </figure>
+
+      <figure class="bnl-portrait" data-rv style="--rvd:.2s">
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/Sam-Zhang.webp?v=1726367464&width=1200" alt="Sam Zhang" loading="lazy">
         </div>
-        <div class="wr-row">
-          <span class="wr-label" data-i18n="wr_muscle">Muscle change</span>
-          <div style="display:flex;align-items:center;gap:0">
-            <div class="wr-bar-wrap"><div class="wr-bar" style="width:24%;background:var(--red)"></div></div>
-            <span class="wr-val dn">↓ 0.5 lbs</span>
-          </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Sam<br>Zhang</p>
+          <p class="bnl-portrait__role">NPI Manager</p>
+        </figcaption>
+      </figure>
+
+      <figure class="bnl-portrait" data-rv>
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/Thunder_McHaffie_1.webp?v=1763434190&width=1200" alt="Thunder McHaffie" loading="lazy">
         </div>
-      </div>
-      <div class="wr-alert">
-        <div class="wr-alert-icon">⚠</div>
-        <div class="wr-alert-text" data-i18n="wr_alert">Slight muscle loss detected. 24% of your weight loss this week came from muscle — above the recommended threshold of 10–15% for GLP-1 users. Consider increasing resistance training this week.</div>
-      </div>
-    </div>
-  </div>
-</section>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Thunder<br>McHaffie</p>
+          <p class="bnl-portrait__role">Market Development Manager</p>
+        </figcaption>
+      </figure>
 
-<!-- METRICS -->
-<section id="metrics" style="background:var(--bg)">
-  <div class="inn">
-    <p class="s-eye rv" data-i18n="metrics_lbl">Quality-grade tracking</p>
-    <div class="m-context rv" data-i18n="metrics_context">Weight down. But <em>what did you actually lose?</em></div>
-    <p class="s-sub rv" style="margin-bottom:36px" data-i18n="metrics_sub">See exactly what your body is losing — fat, muscle, or both. Upload your scans. Let AI explain what's happening.</p>
-    <div class="mg rv">
-      <div class="mc"><div class="mi">⚖</div><div class="mv">78.4<span>kg</span></div><div class="md dn">▼ 1.2 kg</div><div class="mn" data-i18n="m_weight">Body weight</div></div>
-      <div class="mc"><div class="mi">▲</div><div class="mv">34.1<span>kg</span></div><div class="md up">▲ 0.3 kg</div><div class="mn" data-i18n="m_muscle">Skeletal muscle</div></div>
-      <div class="mc"><div class="mi">%</div><div class="mv">19.8<span>%</span></div><div class="md up">▼ 0.6%</div><div class="mn" data-i18n="m_fat">Body fat %</div></div>
-      <div class="mc"><div class="mi">~</div><div class="mv">41.2<span>L</span></div><div class="md up">▲ 0.4 L</div><div class="mn" data-i18n="m_water">Total body water</div></div>
-      <div class="mc"><div class="mi">V</div><div class="mv">7<span>/20</span></div><div class="md up">▼ 1 lvl</div><div class="mn" data-i18n="m_visceral">Visceral fat</div></div>
-      <div class="mc"><div class="mi">S</div><div class="mv">84<span>/100</span></div><div class="md up">▲ 3 pts</div><div class="mn" data-i18n="m_score">Scan score</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CHART -->
-<section class="chbg" id="chart">
-  <div class="inn">
-    <p class="s-eye rv" data-i18n="chart_lbl">Progress visualization</p>
-    <h2 class="s-title rv" data-i18n="chart_title">Watch the<br>lines cross.</h2>
-    <p class="s-sub rv" data-i18n="chart_sub">The moment your muscle line holds while fat drops — that's your protocol working. Hover any line to isolate it.</p>
-    <div class="chbox rv">
-      <div class="chtop">
-        <div class="chleg">
-          <div class="li" onmouseenter="glowLine(0)" onmouseleave="clearGlow()"><div class="ld" style="background:rgba(255,255,255,.65)"></div><span data-i18n="l_weight">WEIGHT</span></div>
-          <div class="li" onmouseenter="glowLine(1)" onmouseleave="clearGlow()"><div class="ld" style="background:var(--blue)"></div><span data-i18n="l_muscle">MUSCLE</span></div>
-          <div class="li" onmouseenter="glowLine(2)" onmouseleave="clearGlow()"><div class="ld" style="background:var(--red);opacity:.8"></div><span data-i18n="l_fat">FAT %</span></div>
+      <figure class="bnl-portrait" data-rv style="--rvd:.04s">
+        <div class="bnl-portrait__frame">
+          <img src="https://res.cloudinary.com/dheiidsny/image/upload/f_auto,q_auto,w_900/v1781545861/Danielj_fuyi1e.jpg" alt="Dan Johnsen" loading="lazy">
         </div>
-        <div class="ctabs">
-          <button class="ct" onclick="setR(1,this)">1M</button>
-          <button class="ct active" onclick="setR(3,this)">3M</button>
-          <button class="ct" onclick="setR(6,this)">6M</button>
-          <button class="ct" onclick="setR(12,this)">1Y</button>
-          <button class="ct" onclick="setR(0,this)">ALL</button>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Dan<br>Johnsen</p>
+          <p class="bnl-portrait__role">Service Manager</p>
+        </figcaption>
+      </figure>
+
+      <figure class="bnl-portrait" data-rv style="--rvd:.08s">
+        <div class="bnl-portrait__frame">
+          <img src="https://res.cloudinary.com/dheiidsny/image/upload/f_auto,q_auto,w_1254/v1783498226/WhatsApp_Image_2026-06-17_at_01.17.22_fbmaer.jpg" alt="Patrick Flynn" loading="lazy">
         </div>
-      </div>
-      <div id="mcw"><canvas id="mc"></canvas></div>
-    </div>
-  </div>
-</section>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Patrick<br>Flynn</p>
+          <p class="bnl-portrait__role">Director of Marketing</p>
+        </figcaption>
+      </figure>
 
-<!-- HOW IT WORKS -->
-<section class="hwbg" id="how">
-  <div class="inn">
-    <p class="s-eye rv" data-i18n="how_lbl">How it works</p>
-    <h2 class="s-title rv" data-i18n="how_title">Three steps<br>to clarity.</h2>
-    <div class="steps rv">
-      <div class="stp"><span class="sn">01</span><h3 data-i18n="s1t">Get your body scan</h3><p data-i18n="s1b">Visit any body composition facility. Get your scan and keep the results — or just take a photo of the printout.</p></div>
-      <div class="stp"><span class="sn">02</span><h3 data-i18n="s2t">Upload. AI does the rest.</h3><p data-i18n="s2b">Upload your scan PDF or photo. Strata's AI extracts every metric and logs it automatically — no manual entry needed.</p></div>
-      <div class="stp"><span class="sn">03</span><h3 data-i18n="s3t">Get your AI analysis</h3><p data-i18n="s3b">Strata tells you exactly what changed, what it means, and what to do next — based on your specific protocol and history.</p></div>
-    </div>
-  </div>
-</section>
+      <figure class="bnl-portrait" data-rv style="--rvd:.12s">
+        <div class="bnl-portrait__frame">
+          <img src="https://res.cloudinary.com/dheiidsny/image/upload/c_fill,g_face,z_0.7,w_800,h_1000/v1783498193/WhatsApp_Image_2026-06-17_at_01.53.05_hth1op.jpg" alt="Nelson Nieuwkerk" loading="lazy">
+        </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Nelson<br>Nieuwkerk</p>
+          <p class="bnl-portrait__role">e-Moto Development</p>
+        </figcaption>
+      </figure>
 
-<!-- PROTOCOLS -->
-<section class="pbg" id="protocols">
-  <div class="inn">
-    <p class="s-eye rv" data-i18n="proto_lbl">Built for every protocol</p>
-    <h2 class="s-title rv" data-i18n="proto_title">Your body,<br>your protocol.</h2>
-    <div class="pgrid rv">
-      <div class="pc"><div class="ptag tg">GLP-1</div><h3 data-i18n="p1t">Ozempic / Wegovy / Mounjaro</h3><p data-i18n="p1b">The #1 fear on GLP-1s is losing muscle alongside fat. Strata's AI monitors your muscle-to-fat loss ratio every session and alerts you when it shifts in the wrong direction.</p><div class="pchips"><span class="pch">muscle preservation</span><span class="pch">fat ratio</span><span class="pch">visceral fat</span><span class="pch">weekly alerts</span></div></div>
-      <div class="pc"><div class="ptag tp">Peptides</div><h3 data-i18n="p2t">AOD-9604 · CJC-1295 · BPC-157</h3><p data-i18n="p2b">Peptide cycles need precise tracking to validate results. Strata logs each phase, tracks recomposition markers, and shows you what your stack is actually doing.</p><div class="pchips"><span class="pch">cycle phases</span><span class="pch">recomposition</span><span class="pch">SMM delta</span></div></div>
-      <div class="pc"><div class="ptag tgm">Gym</div><h3 data-i18n="p3t">Bulking & cutting</h3><p data-i18n="p3b">See if your bulk is clean or dirty. Confirm your cut is hitting fat and not muscle. AI-driven insights for every phase of your training cycle.</p><div class="pchips"><span class="pch">phase tracking</span><span class="pch">lean ratio</span><span class="pch">scan score</span></div></div>
-      <div class="pc"><div class="ptag tr">Recomp</div><h3 data-i18n="p4t">Body recomposition</h3><p data-i18n="p4b">Gaining muscle while losing fat is the hardest thing to track. Strata makes the invisible visible — session by session, with AI context at every step.</p><div class="pchips"><span class="pch">simultaneous change</span><span class="pch">fat % trend</span><span class="pch">BMR</span></div></div>
-    </div>
-  </div>
-</section>
+      <!-- PLACEHOLDER 11 of 12: awaiting Mike's headshot. Standing in with
+           Matthew's photo so the grid previews full. Swap the img src and the
+           last name when the real one lands. -->
+      <figure class="bnl-portrait" data-rv style="--rvd:.16s">
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/portrait_3.webp?v=1741622990&width=1200" alt="" loading="lazy">
+        </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Mike<br>Last Name</p>
+          <p class="bnl-portrait__role">Position TBD</p>
+        </figcaption>
+      </figure>
 
-<!-- PRICING -->
-<section class="pribg" id="pricing">
-  <div class="inn" style="text-align:center">
-    <p class="s-eye rv" data-i18n="price_lbl">Simple pricing</p>
-    <h2 class="s-title rv" style="margin:0 auto" data-i18n="price_title">Less than a coffee.<br>More than a guess.</h2>
-    <p class="price-above rv" data-i18n="price_above">Less than <strong>$0.10/day</strong> to track real fat loss with AI</p>
-    <p class="s-sub rv" style="margin:10px auto 0" data-i18n="price_sub">7-day free trial on both plans. No commitment until you're convinced.</p>
-    <div class="ptog rv">
-      <span class="tl" data-i18n="price_mo">Monthly</span>
-      <div class="tog" id="btog" onclick="toggleBill()"><div class="tok"></div></div>
-      <span class="tl" data-i18n="price_yr">Annual</span>
-      <span class="spill" data-i18n="price_save">Save 77%</span>
-    </div>
-    <div class="disc-banner" id="disc-banner">
-      <h3 data-i18n="disc_title">Unlock 77% off</h3>
-      <p data-i18n="disc_sub">Pay $7.99 once — full year access. That's $0.67/month.</p>
-    </div>
-    <div class="pcards rv">
-      <div class="pcard">
-        <div class="pcn" data-i18n="plan1">Monthly</div>
-        <div class="pcp"><sup>$</sup>2.90<sub data-i18n="per_mo">/mo</sub></div>
-        <div class="pceq" data-i18n="mo_bill">Billed monthly · cancel anytime</div>
-        <ul class="pcfl">
-          <li data-i18n="f1">Unlimited scan uploads</li>
-          <li data-i18n="f2">AI body composition analysis</li>
-          <li data-i18n="f3">Progress chart & history</li>
-          <li data-i18n="f4">Weekly AI report</li>
-          <li data-i18n="f5">PDF export</li>
-        </ul>
-        <button class="btn-wb" style="width:100%;text-align:center;display:block;font-size:13px;padding:11px;border-radius:980px" onclick="showPage('login-page')" data-i18n="cta">Start free trial</button>
-      </div>
-      <div class="pcard feat">
-        <div class="fbadge" data-i18n="bv">Best value</div>
-        <div class="pcn" data-i18n="plan2">Annual</div>
-        <div class="pcp"><sup>$</sup>7.99<sub data-i18n="per_yr">/yr</sub></div>
-        <div class="pceq" data-i18n="yr_bill">$0.67/month · billed once · 77% off</div>
-        <ul class="pcfl">
-          <li data-i18n="f1">Unlimited scan uploads</li>
-          <li data-i18n="f2">AI body composition analysis</li>
-          <li data-i18n="f3">Progress chart & history</li>
-          <li data-i18n="f4">Weekly AI report</li>
-          <li data-i18n="f5">PDF export</li>
-        </ul>
-        <button class="btn-w" style="width:100%;text-align:center;display:block;font-size:13px;padding:11px;border-radius:980px" onclick="showPage('login-page')" data-i18n="cta">Start free trial</button>
-        <p class="pcnote" data-i18n="yr_note">Annual plan is non-refundable after purchase.</p>
-      </div>
-    </div>
-    <p class="price-below rv" data-i18n="price_below">Used by GLP-1 users to avoid muscle loss during weight loss</p>
-  </div>
-</section>
+      <!-- PLACEHOLDER 12 of 12: awaiting Belinda's headshot. Same as above. -->
+      <figure class="bnl-portrait" data-rv style="--rvd:.2s">
+        <div class="bnl-portrait__frame">
+          <img src="https://ridebonnell.com/cdn/shop/files/Samuel_Hasketh_1.webp?v=1763434153&width=1200" alt="" loading="lazy">
+        </div>
+        <figcaption class="bnl-portrait__meta">
+          <p class="bnl-portrait__name">Belinda<br>Last Name</p>
+          <p class="bnl-portrait__role">Position TBD</p>
+        </figcaption>
+      </figure>
 
-<!-- FAQ -->
-<section class="faqbg" id="faq">
-  <div class="inn">
-    <p class="s-eye rv" data-i18n="faq_lbl">Questions</p>
-    <h2 class="s-title rv" data-i18n="faq_title">Got questions?</h2>
-    <div class="faql rv" id="faq-list"></div>
-  </div>
-</section>
-
-<footer>
-  <div class="fwm">Strata</div>
-  <div class="ftop">
-    <div class="fbrand">
-      <div style="display:flex;align-items:center;gap:9px">
-        <svg viewBox="0 0 533 400" style="height:18px;width:auto" fill="none"><path d="M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z" fill="white"/><path d="M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z" fill="white"/><path d="M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z" fill="white"/></svg>
-        <span style="font-weight:700;font-size:13px;letter-spacing:-.01em">Strata</span>
-      </div>
-      <p data-i18n="foot_tag">AI body composition analysis for serious protocols.</p>
     </div>
-    <div class="fcol"><h4 data-i18n="foot_prod">Product</h4><ul><li><a href="#ai-insights" data-i18n="nav_ai">AI Insights</a></li><li><a href="#metrics" data-i18n="nav_metrics">Metrics</a></li><li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li><li><a href="#faq" data-i18n="faq_lbl">FAQ</a></li></ul></div>
-    <div class="fcol"><h4 data-i18n="foot_protocols">Protocols</h4><ul><li><a href="#protocols">GLP-1</a></li><li><a href="#protocols">Peptides</a></li><li><a href="#protocols" data-i18n="foot_gym">Gym</a></li><li><a href="#protocols" data-i18n="foot_rec">Recomposition</a></li></ul></div>
-    <div class="fcol"><h4 data-i18n="foot_legal">Legal</h4><ul><li><a href="#" data-i18n="foot_priv">Privacy Policy</a></li><li><a href="#" data-i18n="foot_terms">Terms of Use</a></li><li><a href="#" data-i18n="foot_ref">Refund Policy</a></li></ul></div>
+  </section>
+
+  <!-- ===== CLOSING ===== -->
+  <div class="bnl-closing">
+    <div class="bnl-closing__inner">
+      <p class="bnl-eyebrow" data-rv>Our Team</p>
+      <h2 class="bnl-closing__title" data-rv style="--rvd:.05s">Built global.<br>Ridden local.</h2>
+    </div>
   </div>
-  <div class="fbot">
-    <p data-i18n="foot_copy">© 2026 Strata Health Inc. All rights reserved.</p>
-    <div class="fls"><a href="#" data-i18n="foot_priv">Privacy</a><a href="#" data-i18n="foot_terms">Terms</a></div>
-  </div>
-</footer>
+
 </div>
 
-<!-- ══ LOGIN ══════════════════════════════════════════════════════════════════ -->
-<div id="login-page" class="page">
-  <div id="login-page-inner">
-    <button class="back-btn" onclick="showPage('main-page')">← Back to site</button>
-    <div class="login-box">
-      <div class="login-logo">
-        <svg viewBox="0 0 533 400" fill="none"><path d="M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z" fill="white"/><path d="M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z" fill="white"/><path d="M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z" fill="white"/></svg>
-        <span>Strata</span>
-      </div>
-      <div class="demo-hint">Demo: <span>demo@strata.app</span> / <span>strata2026</span></div>
-      <h2 class="login-title">Welcome back.</h2>
-      <p class="login-sub">Sign in to your dashboard</p>
-      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="login-email" type="email" placeholder="you@email.com"></div>
-      <div class="form-group"><label class="form-label">Password</label><input class="form-input" id="login-pass" type="password" placeholder="••••••••"></div>
-      <button class="login-btn" onclick="doLogin()">Sign in →</button>
-      <div class="login-footer">No account? <a href="#">Start 7-day free trial</a></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ DASHBOARD ══════════════════════════════════════════════════════════════ -->
-<div id="dash-page" class="page">
-  <nav class="dash-nav">
-    <div class="dash-logo" onclick="showPage('main-page')" style="cursor:pointer;display:flex;align-items:center;gap:9px;text-decoration:none">
-      <svg viewBox="0 0 533 400" style="height:20px;width:auto" fill="none"><path d="M162,196c0,10,.8,20,2.3,29.4,3,19.1,19.7,33.1,39,33.1h288.4c19.3,0,36-14,39-33.1,1.5-9.6,2.3-19.4,2.3-29.4s-.8-19.8-2.3-29.4c-3-19.1-19.7-33.1-39-33.1H203c-19.3,0-36,14-39,33.1C162.8,176.2,162,186,162,196Z" fill="white"/><path d="M464.4,98.9c57,0,76.9-76,27-103.7C448.8-28.5,399.8-42,347.6-42s-101.2,13.5-143.8,37.1C154,22.8,174,98.9,231,98.9Z" fill="white"/><path d="M226.1,293.7c-15.8,0-23.9,18.9-13,30.3,33.8,35.6,81.6,57.8,134.6,57.8s100.7-22.2,134.5-57.8c10.9-11.4,2.7-30.3-13-30.3Z" fill="white"/></svg>
-      <span style="font-family:var(--font);font-weight:700;font-size:13px;letter-spacing:-.01em">Strata</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <div class="ai-badge ok" style="margin-bottom:0">GLP-1 · Week 14</div>
-      <div style="width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">JM</div>
-      <button class="btn-wb" style="font-size:11px;padding:6px 14px" onclick="showPage('main-page')">← Back</button>
-    </div>
-  </nav>
-  <div class="dash-body-wrap">
-    <div class="dash-greeting">
-      <h1>Good morning, Jorge.</h1>
-      <p>Last scan: May 1, 2026 · GLP-1 · Semaglutide 1mg · Week 14</p>
-    </div>
-    <div class="dash-kpis">
-      <div class="dk2"><div class="dk2-val">78.4<span>kg</span></div><div class="dk2-delta dn">▼ 1.2 from last</div><div class="dk2-name">Body weight</div></div>
-      <div class="dk2"><div class="dk2-val">34.1<span>kg</span></div><div class="dk2-delta up">▲ 0.3 from last</div><div class="dk2-name">Skeletal muscle</div></div>
-      <div class="dk2"><div class="dk2-val">19.8<span>%</span></div><div class="dk2-delta up">▼ 0.6% from last</div><div class="dk2-name">Body fat %</div></div>
-      <div class="dk2"><div class="dk2-val">7<span>/20</span></div><div class="dk2-delta up">▼ 1 level</div><div class="dk2-name">Visceral fat</div></div>
-    </div>
-
-    <!-- AI insight card in dashboard -->
-    <div class="dash-card" style="margin-bottom:14px;border-left:3px solid var(--blue)">
-      <div class="dash-card-title">AI insight · latest scan</div>
-      <div style="font-size:14px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em">Fat loss accelerating. Muscle holding steady.</div>
-      <div style="font-size:12px;color:var(--gray2);line-height:1.65">Body fat % dropped 0.6% this session while muscle stayed within ±0.1 kg — the ideal GLP-1 outcome. Your protein intake and resistance training are working. Keep it up through week 16.</div>
-    </div>
-
-    <div class="dash-grid">
-      <div class="dash-card">
-        <div class="dash-card-title">Progress — 6 months</div>
-        <div style="display:flex;gap:14px;margin-bottom:12px">
-          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--gray3);font-family:var(--mono)"><div style="width:12px;height:2px;background:rgba(255,255,255,.6);border-radius:1px"></div>WEIGHT</div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--gray3);font-family:var(--mono)"><div style="width:12px;height:2px;background:var(--blue);border-radius:1px"></div>MUSCLE</div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--gray3);font-family:var(--mono)"><div style="width:12px;height:2px;background:var(--red);border-radius:1px;opacity:.8"></div>FAT %</div>
-        </div>
-        <div id="dp-chart"><canvas id="dpc"></canvas></div>
-      </div>
-      <div class="dash-card">
-        <div class="dash-card-title">Session history</div>
-        <div>
-          <div class="sess-row"><div><div class="sess-date">May 1, 2026</div><div class="sess-tag">GLP-1 W14</div></div><div class="sess-vals"><div>78.4 kg · 19.8%</div><div class="sess-delta up">▲ Muscle +0.3</div></div></div>
-          <div class="sess-row"><div><div class="sess-date">Apr 3, 2026</div><div class="sess-tag">GLP-1 W10</div></div><div class="sess-vals"><div>79.6 kg · 20.4%</div><div class="sess-delta up">▲ Muscle +0.2</div></div></div>
-          <div class="sess-row"><div><div class="sess-date">Mar 5, 2026</div><div class="sess-tag">GLP-1 W6</div></div><div class="sess-vals"><div>81.0 kg · 21.2%</div><div class="sess-delta dn">▼ Muscle −0.1</div></div></div>
-          <div class="sess-row"><div><div class="sess-date">Feb 4, 2026</div><div class="sess-tag">GLP-1 W2</div></div><div class="sess-vals"><div>83.0 kg · 22.7%</div><div class="sess-delta" style="color:var(--gray3)">Baseline</div></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="dash-card" style="margin-bottom:16px">
-      <div class="dash-card-title">Upload new scan</div>
-      <p style="font-size:13px;color:var(--gray3);font-weight:400;margin-bottom:0">Upload your scan PDF or photo — AI will extract all metrics automatically.</p>
-      <div class="upload-area" onclick="document.getElementById('pdf-upload').click()">
-        <input type="file" id="pdf-upload" accept=".pdf,image/*" onchange="handleUpload(event)">
-        <div style="font-size:22px;margin-bottom:10px;opacity:.25">↑</div>
-        <div class="upload-title">Drop your scan results here</div>
-        <div class="upload-sub">PDF, JPG or PNG · Max 10MB</div>
-        <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('pdf-upload').click()">Choose file</button>
-      </div>
-      <div id="upload-status" style="display:none;margin-top:14px;background:var(--bg4);border:1px solid var(--border2);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--gray2)"></div>
-    </div>
-
-    <div style="display:flex;gap:10px">
-      <button class="btn-w" style="font-size:12px" onclick="exportPDF()">↓ Download PDF report</button>
-      <button class="btn-wb" style="font-size:12px" onclick="showPage('main-page')">← Back to site</button>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
-// ── I18N ───────────────────────────────────────────────────────────────────
-const T={
-en:{
-  ann:'GLP-1 users: see exactly what your body is losing — fat or muscle. <a href="#pricing">Start free →</a>',
-  nav_ai:'AI insights',nav_metrics:'Metrics',nav_protocols:'Protocols',nav_pricing:'Pricing',nav_login:'Log in',nav_start:'Start free',
-  hero_title:"You're losing weight…<br>but are you losing <em>muscle?</em>",
-  hero_sub:"Strata uses AI to analyze your body composition over time and show you what you're actually losing — fat, muscle, or both.",
-  hero_glp:'Built for GLP-1 users who want to lose fat — not muscle.',
-  hero_cta1:'Start free',hero_cta2:'See how it works',hero_trust:'7-day free trial · no credit card required to start',
-  ai_lbl:'AI insights',ai_title:'Not just data.<br>Interpretation.',
-  ai_sub:"Every time you upload a scan, Strata's AI reads the numbers and tells you what's actually happening to your body — in plain language.",
-  badge_alert:'⚠ Alert',badge_warn:'↘ Trend detected',badge_ok:'✓ Looking good',badge_neutral:'→ Recommendation',
-  ai1_title:'You lost 3.2 lbs this week — ~40% may be muscle.',
-  ai1_sub:'Your fat loss rate slowed while total weight dropped fast. This pattern often indicates muscle loss, especially if protein intake is low or training volume dropped.',
-  ai2_title:'Muscle loss trend detected over last 3 entries.',
-  ai2_sub:'Skeletal muscle mass has declined 0.3 kg across your last 3 sessions. On GLP-1, this can accelerate without resistance training and adequate protein — aim for 1.8g/kg bodyweight.',
-  ai3_title:'Fat loss is accelerating. Muscle is holding.',
-  ai3_sub:"This is the ideal GLP-1 outcome — your body fat percentage dropped 1.2% while skeletal muscle stayed within ±0.1 kg. Your protein intake and training are working.",
-  ai4_title:'Fat loss slowing. Consider adjusting protein intake.',
-  ai4_sub:'Your rate of fat loss has decreased 38% over the last 6 weeks. Increasing dietary protein by 20–30g/day and adding 2 resistance sessions/week typically restores momentum.',
-  ai_generated:'Generated from your May 1 scan',ai_generated2:'Based on sessions Feb–Apr 2026',
-  wr_lbl:'Weekly AI report',wr_title:'Your weekly<br>body breakdown.',
-  wr_sub:'Every week, Strata sends you a breakdown of exactly what changed — and what it means for your protocol.',
-  wr_week:'Week 6 · GLP-1 Protocol · Semaglutide 1mg',
-  wr_weight:'Total weight',wr_fat:'Fat lost',wr_muscle:'Muscle change',
-  wr_alert:'Slight muscle loss detected. 24% of your weight loss this week came from muscle — above the recommended threshold of 10–15% for GLP-1 users. Consider increasing resistance training this week.',
-  metrics_lbl:'Quality-grade tracking',metrics_context:'Weight down. But <em>what did you actually lose?</em>',
-  metrics_sub:'See exactly what your body is losing — fat, muscle, or both. Upload your scans. Let AI explain what\'s happening.',
-  m_weight:'Body weight',m_muscle:'Skeletal muscle',m_fat:'Body fat %',m_water:'Total body water',m_visceral:'Visceral fat',m_score:'Scan score',
-  chart_lbl:'Progress visualization',chart_title:'Watch the<br>lines cross.',
-  chart_sub:"The moment your muscle line holds while fat drops — that's your protocol working.",
-  l_weight:'WEIGHT',l_muscle:'MUSCLE',l_fat:'FAT %',
-  how_lbl:'How it works',how_title:'Three steps<br>to clarity.',
-  s1t:'Get your body scan',s1b:'Visit any body composition facility. Get your scan and keep the results — or just take a photo of the printout.',
-  s2t:'Upload. AI does the rest.',s2b:"Upload your scan PDF or photo. Strata's AI extracts every metric and logs it automatically — no manual entry needed.",
-  s3t:'Get your AI analysis',s3b:'Strata tells you exactly what changed, what it means, and what to do next — based on your specific protocol and history.',
-  proto_lbl:'Built for every protocol',proto_title:'Your body,<br>your protocol.',
-  p1t:'Ozempic / Wegovy / Mounjaro',p1b:"The #1 fear on GLP-1s is losing muscle alongside fat. Strata's AI monitors your muscle-to-fat loss ratio every session and alerts you when it shifts in the wrong direction.",
-  p2t:'AOD-9604 · CJC-1295 · BPC-157',p2b:"Peptide cycles need precise tracking to validate results. Strata logs each phase, tracks recomposition markers, and shows you what your stack is actually doing.",
-  p3t:'Bulking & cutting',p3b:"See if your bulk is clean or dirty. Confirm your cut is hitting fat and not muscle. AI-driven insights for every phase.",
-  p4t:'Body recomposition',p4b:"Gaining muscle while losing fat is the hardest thing to track. Strata makes the invisible visible — session by session.",
-  price_lbl:'Simple pricing',price_title:'Less than a coffee.<br>More than a guess.',
-  price_above:'Less than <strong>$0.10/day</strong> to track real fat loss with AI',
-  price_sub:"7-day free trial on both plans. No commitment until you're convinced.",
-  price_mo:'Monthly',price_yr:'Annual',price_save:'Save 77%',
-  plan1:'Monthly',plan2:'Annual',per_mo:'/mo',per_yr:'/yr',
-  mo_bill:'Billed monthly · cancel anytime',yr_bill:'$0.67/month · billed once · 77% off',
-  disc_title:'Unlock 77% off',disc_sub:'Pay $7.99 once — full year access. That\'s $0.67/month.',
-  f1:'Unlimited scan uploads',f2:'AI body composition analysis',f3:'Progress chart & history',f4:'Weekly AI report',f5:'PDF export',
-  cta:'Start free trial',bv:'Best value',yr_note:'Annual plan is non-refundable after purchase.',
-  price_below:'Used by GLP-1 users to avoid muscle loss during weight loss',
-  faq_lbl:'Questions',faq_title:'Got questions?',
-  foot_tag:'AI body composition analysis for serious protocols.',
-  foot_prod:'Product',foot_protocols:'Protocols',foot_gym:'Gym',foot_rec:'Recomposition',
-  foot_legal:'Legal',foot_priv:'Privacy Policy',foot_terms:'Terms of Use',foot_ref:'Refund Policy',
-  foot_copy:'© 2026 Strata Health Inc. All rights reserved.',
-  faqs:[
-    ["Do I need a specific scan device?","No. Strata works with any body composition assessment. Just upload your scan PDF or photo and the AI does the rest."],
-    ["How does the AI analysis work?","Strata's AI reads your scan results, compares them to your history, and generates plain-language insights specific to your protocol — GLP-1, peptides, or gym."],
-    ["Am I losing muscle on GLP-1?","That's exactly what Strata answers. It monitors your muscle-to-fat loss ratio every session and alerts you when muscle loss exceeds safe thresholds."],
-    ["Can I cancel anytime?","Monthly plans can be cancelled anytime. Annual plans are non-refundable after purchase."],
-    ["What's in the free trial?","Full access for 7 days. No charge until the trial ends."]
-  ],
-  peptides:['GLP-1','Ozempic','Wegovy','Mounjaro','Tirzepatide','Semaglutide','AOD-9604','CJC-1295','BPC-157','Ipamorelin','Tesamorelin','GHRP-6','Hexarelin','TB-500','Retatrutide','Ipamorelin']
-},
-es:{
-  ann:'Usuarios GLP-1: ve exactamente qué está perdiendo tu cuerpo — grasa o músculo. <a href="#pricing">7 días gratis →</a>',
-  nav_ai:'IA insights',nav_metrics:'Métricas',nav_protocols:'Protocolos',nav_pricing:'Precios',nav_login:'Ingresar',nav_start:'Comenzar',
-  hero_title:'Estás bajando de peso…<br>¿pero estás perdiendo <em>músculo?</em>',
-  hero_sub:'Strata usa IA para analizar tu composición corporal con el tiempo y mostrarte exactamente qué estás perdiendo — grasa, músculo, o ambos.',
-  hero_glp:'Creado para usuarios de GLP-1 que quieren perder grasa — no músculo.',
-  hero_cta1:'Comenzar gratis',hero_cta2:'Ver cómo funciona',hero_trust:'7 días gratis · sin tarjeta de crédito para empezar',
-  ai_lbl:'IA insights',ai_title:'No solo datos.<br>Interpretación.',
-  ai_sub:'Cada vez que subes un análisis, la IA de Strata lee los números y te dice exactamente qué le está pasando a tu cuerpo — en lenguaje simple.',
-  badge_alert:'⚠ Alerta',badge_warn:'↘ Tendencia detectada',badge_ok:'✓ Bien encaminado',badge_neutral:'→ Recomendación',
-  ai1_title:'Bajaste 1.4 kg esta semana — ~40% puede ser músculo.',
-  ai1_sub:'Tu tasa de pérdida de grasa disminuyó mientras el peso bajó rápido. Este patrón frecuentemente indica pérdida de músculo, especialmente si la ingesta de proteínas es baja.',
-  ai2_title:'Tendencia de pérdida muscular detectada en las últimas 3 sesiones.',
-  ai2_sub:'La masa muscular esquelética bajó 0.3 kg en tus últimas 3 sesiones. En GLP-1, esto puede acelerarse sin entrenamiento de fuerza y proteína adecuada — apunta a 1.8g/kg de peso.',
-  ai3_title:'La pérdida de grasa se acelera. El músculo se mantiene.',
-  ai3_sub:'Este es el resultado ideal en GLP-1 — tu porcentaje de grasa bajó 1.2% mientras la masa muscular se mantuvo dentro de ±0.1 kg.',
-  ai4_title:'Pérdida de grasa desacelerándose. Considera ajustar tu proteína.',
-  ai4_sub:'Tu tasa de pérdida de grasa bajó 38% en las últimas 6 semanas. Aumentar proteína 20–30g/día y agregar 2 sesiones de fuerza/semana suele restaurar el ritmo.',
-  ai_generated:'Generado de tu análisis del 1 de mayo',ai_generated2:'Basado en sesiones feb–abr 2026',
-  wr_lbl:'Reporte semanal IA',wr_title:'Tu desglose<br>corporal semanal.',
-  wr_sub:'Cada semana, Strata te envía un desglose exacto de qué cambió — y qué significa para tu protocolo.',
-  wr_week:'Semana 6 · Protocolo GLP-1 · Semaglutida 1mg',
-  wr_weight:'Peso total',wr_fat:'Grasa perdida',wr_muscle:'Cambio muscular',
-  wr_alert:'Leve pérdida muscular detectada. El 24% de tu pérdida de peso esta semana vino del músculo — por encima del umbral recomendado de 10–15% para GLP-1. Considera aumentar el entrenamiento de fuerza.',
-  metrics_lbl:'Seguimiento de calidad',metrics_context:'Peso abajo. Pero <em>¿qué perdiste realmente?</em>',
-  metrics_sub:'Ve exactamente qué está perdiendo tu cuerpo — grasa, músculo, o ambos. Sube tus análisis. Deja que la IA explique qué está pasando.',
-  m_weight:'Peso corporal',m_muscle:'Masa muscular',m_fat:'% grasa corporal',m_water:'Agua corporal total',m_visceral:'Grasa visceral',m_score:'Score del análisis',
-  chart_lbl:'Visualización de progreso',chart_title:'Observa las<br>líneas cruzarse.',
-  chart_sub:'El momento en que tu línea de músculo se mantiene mientras la grasa baja — tu protocolo está funcionando.',
-  l_weight:'PESO',l_muscle:'MÚSCULO',l_fat:'% GRASA',
-  how_lbl:'Cómo funciona',how_title:'Tres pasos<br>a la claridad.',
-  s1t:'Hazte el análisis corporal',s1b:'Visita cualquier centro de composición corporal. Guarda tus resultados o simplemente toma una foto de la hoja.',
-  s2t:'Sube. La IA hace el resto.',s2b:'Sube tu PDF o foto del análisis. La IA de Strata extrae cada métrica y la registra automáticamente.',
-  s3t:'Recibe tu análisis IA',s3b:'Strata te dice exactamente qué cambió, qué significa, y qué hacer después — basado en tu protocolo específico.',
-  proto_lbl:'Para cada protocolo',proto_title:'Tu cuerpo,<br>tu protocolo.',
-  p1t:'Ozempic / Wegovy / Mounjaro',p1b:'El miedo #1 en GLP-1 es perder músculo junto a la grasa. La IA de Strata monitorea tu ratio músculo-grasa cada sesión y te alerta cuando cambia en la dirección equivocada.',
-  p2t:'AOD-9604 · CJC-1295 · BPC-157',p2b:'Los ciclos de péptidos necesitan seguimiento preciso para validar resultados. Strata registra cada fase y te muestra qué está haciendo tu stack realmente.',
-  p3t:'Volumen & definición',p3b:'Ve si tu volumen es limpio o sucio. Confirma que tu definición ataque grasa, no músculo. Insights IA para cada fase.',
-  p4t:'Recomposición corporal',p4b:'Ganar músculo mientras pierdes grasa es lo más difícil de rastrear. Strata lo hace visible — sesión a sesión.',
-  price_lbl:'Precios simples',price_title:'Menos de un café.<br>Más que una suposición.',
-  price_above:'Menos de <strong>$0.10/día</strong> para rastrear pérdida de grasa real con IA',
-  price_sub:'Prueba de 7 días en ambos planes. Sin compromiso hasta que estés convencido.',
-  price_mo:'Mensual',price_yr:'Anual',price_save:'Ahorra 77%',
-  plan1:'Mensual',plan2:'Anual',per_mo:'/mes',per_yr:'/año',
-  mo_bill:'Facturado mensualmente · cancela cuando quieras',yr_bill:'$0.67/mes · pago único · 77% descuento',
-  disc_title:'Desbloquea 77% de descuento',disc_sub:'Paga $7.99 una vez — acceso todo el año. Eso es $0.67/mes.',
-  f1:'Cargas de análisis ilimitadas',f2:'Análisis IA de composición corporal',f3:'Gráfico e historial de progreso',f4:'Reporte semanal IA',f5:'Exportación PDF',
-  cta:'Comenzar prueba gratis',bv:'Mejor valor',yr_note:'El plan anual no es reembolsable tras la compra.',
-  price_below:'Usado por usuarios de GLP-1 para evitar pérdida muscular durante la pérdida de peso',
-  faq_lbl:'Preguntas',faq_title:'¿Tienes dudas?',
-  foot_tag:'Análisis IA de composición corporal para protocolos serios.',
-  foot_prod:'Producto',foot_protocols:'Protocolos',foot_gym:'Gym',foot_rec:'Recomposición',
-  foot_legal:'Legal',foot_priv:'Política de privacidad',foot_terms:'Términos de uso',foot_ref:'Política de reembolso',
-  foot_copy:'© 2026 Strata Health Inc. Todos los derechos reservados.',
-  faqs:[
-    ['¿Necesito un dispositivo específico?','No. Strata funciona con cualquier análisis de composición corporal. Solo sube tu PDF o foto y la IA hace el resto.'],
-    ['¿Cómo funciona el análisis IA?','La IA de Strata lee tus resultados, los compara con tu historial y genera insights en lenguaje simple específicos a tu protocolo.'],
-    ['¿Estoy perdiendo músculo con GLP-1?','Exactamente lo que Strata responde. Monitorea tu ratio músculo-grasa cada sesión y te alerta cuando la pérdida muscular supera los umbrales seguros.'],
-    ['¿Puedo cancelar cuando quiera?','Planes mensuales: sí, cancela cuando quieras. Planes anuales no son reembolsables.'],
-    ['¿Qué incluye la prueba gratuita?','Acceso completo 7 días. Sin cargo hasta que termine.']
-  ],
-  peptides:['GLP-1','Ozempic','Wegovy','Mounjaro','Tirzepatida','Semaglutida','AOD-9604','CJC-1295','BPC-157','Ipamorelina','Tesamorelina','GHRP-6','Hexarelina','TB-500','Retratrutida','Ipamorelina']
-}};
-
-let lang='en';
-function setLang(l){
-  lang=l;
-  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('active',b.textContent===l.toUpperCase()));
-  const t=T[l];
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const k=el.getAttribute('data-i18n');
-    if(t[k]!==undefined&&typeof t[k]==='string')el.innerHTML=t[k];
-  });
-  document.getElementById('ann').innerHTML=t.ann;
-  buildTicker();buildFAQ();
-}
-
-// TICKER
-function buildTicker(){
-  const tr=document.getElementById('ticker');
-  const items=[...T[lang].peptides,...T[lang].peptides];
-  tr.innerHTML=items.map(p=>`<span class="tick-item">${p}</span>`).join('');
-}
-buildTicker();
-
-// HERO PARTICLES — layered body shape
 (function(){
-  const cv=document.getElementById('hc');
-  const cx=cv.getContext('2d');
-  let W,H,pts=[];
-  const LAYERS=[
-    {yf:.42,col:'#1a4fff',glow:'#4477ff',n:160,sp:.55,yr:.32,sz:[.4,2.0],al:[.05,.22]},
-    {yf:.50,col:'#2266ee',glow:'#5599ff',n:130,sp:.40,yr:.20,sz:[.4,1.6],al:[.08,.34]},
-    {yf:.52,col:'#88bbff',glow:'#bbddff',n:70, sp:.20,yr:.10,sz:[.3,1.1],al:[.1,.45]},
-  ];
-  function CX(){return W/2}
-  function init(){
-    W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;pts=[];
-    LAYERS.forEach(l=>{
-      for(let i=0;i<l.n;i++){
-        const a=Math.random()*Math.PI*2,r=Math.random();
-        pts.push({
-          x:CX()+Math.cos(a)*r*l.sp*W*.4,
-          y:H*l.yf+Math.sin(a)*r*l.yr*H*.5,
-          ox:CX()+Math.cos(a)*r*l.sp*W*.4,
-          oy:H*l.yf+Math.sin(a)*r*l.yr*H*.5,
-          sz:l.sz[0]+Math.random()*(l.sz[1]-l.sz[0]),
-          al:l.al[0]+Math.random()*(l.al[1]-l.al[0]),
-          col:l.col,glow:l.glow,
-          ph:Math.random()*Math.PI*2,sp:.2+Math.random()*.5,
-          drift:Math.random()<.12
-        });
-      }
-    });
+  var root = document.getElementById('bnl-about');
+  if (!root) return;
+  var items = root.querySelectorAll('[data-rv]');
+  if (!('IntersectionObserver' in window)) {
+    for (var i=0;i<items.length;i++) items[i].classList.add('rv');
+    return;
   }
-  window.addEventListener('resize',init);init();
-  let f=0;
-  function draw(){
-    f++;cx.clearRect(0,0,W,H);
-    pts.forEach(p=>{
-      const wx=Math.sin(f*.006*p.sp+p.ph)*(p.drift?14:3.5);
-      const wy=Math.cos(f*.005*p.sp+p.ph+1)*(p.drift?9:2);
-      p.x=p.ox+wx;p.y=p.oy+wy;
-      const grd=cx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.sz*4);
-      grd.addColorStop(0,p.glow+Math.floor(p.al*.3*255).toString(16).padStart(2,'0'));
-      grd.addColorStop(1,'transparent');
-      cx.beginPath();cx.arc(p.x,p.y,p.sz*4,0,Math.PI*2);cx.fillStyle=grd;cx.fill();
-      cx.beginPath();cx.arc(p.x,p.y,p.sz,0,Math.PI*2);
-      cx.fillStyle=p.col+Math.floor(p.al*255).toString(16).padStart(2,'0');cx.fill();
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('rv'); io.unobserve(e.target); }
     });
-    requestAnimationFrame(draw);
-  }
-  draw();
+  }, { rootMargin:'0px 0px -8% 0px', threshold:.12 });
+  items.forEach(function(el){ io.observe(el); });
 })();
-
-// CHART
-const ALL={
-  labels:['Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'],
-  weight:[90.2,88.6,87.1,85.4,83.8,82.0,80.5,79.2,78.4,78.1],
-  muscle:[32.4,32.5,32.7,33.0,33.3,33.5,33.7,33.9,34.1,34.2],
-  fat:   [28.4,27.5,26.4,25.2,24.0,22.8,21.6,20.5,19.8,19.3],
-};
-function slice(m){if(!m)return ALL;const n=m+1;return{labels:ALL.labels.slice(-n),weight:ALL.weight.slice(-n),muscle:ALL.muscle.slice(-n),fat:ALL.fat.slice(-n)}}
-
-const glowPlugin={id:'glow',afterDatasetsDraw(chart){
-  if(chart._gDs===undefined)return;
-  const{ctx}=chart;const ds=chart._gDs;
-  const dataset=chart.data.datasets[ds];const meta=chart.getDatasetMeta(ds);
-  if(!meta.visible)return;
-  ctx.save();
-  ctx.shadowColor=dataset.borderColor;ctx.shadowBlur=22;ctx.lineWidth=3.5;ctx.strokeStyle=dataset.borderColor;ctx.globalAlpha=.9;
-  ctx.beginPath();meta.data.forEach((pt,i)=>{if(i===0)ctx.moveTo(pt.x,pt.y);else ctx.lineTo(pt.x,pt.y)});ctx.stroke();
-  ctx.shadowBlur=38;ctx.lineWidth=1.5;ctx.globalAlpha=.4;
-  ctx.beginPath();meta.data.forEach((pt,i)=>{if(i===0)ctx.moveTo(pt.x,pt.y);else ctx.lineTo(pt.x,pt.y)});ctx.stroke();
-  ctx.restore();
-}};
-Chart.register(glowPlugin);
-
-function mkChart(id,data,sm){
-  return new Chart(document.getElementById(id),{type:'line',
-    data:{labels:data.labels,datasets:[
-      {label:'Weight',data:data.weight,borderColor:'rgba(255,255,255,.6)',borderWidth:sm?1.5:2,pointRadius:sm?2:3.5,pointBackgroundColor:'#fff',tension:.4,yAxisID:'y'},
-      {label:'Muscle',data:data.muscle,borderColor:'#006AFF',borderWidth:sm?1.5:2,pointRadius:sm?2:3.5,pointBackgroundColor:'#006AFF',tension:.4,yAxisID:'y'},
-      {label:'Fat %', data:data.fat,  borderColor:'rgba(255,85,85,.7)',borderWidth:sm?1:1.5,borderDash:[4,3],pointRadius:sm?2:3,pointBackgroundColor:'#ff5555',tension:.4,yAxisID:'y2'},
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(10,10,10,.97)',borderColor:'#1a1a1a',borderWidth:1,titleColor:'#444',titleFont:{family:"'IBM Plex Mono'",size:10},bodyColor:'#eee',bodyFont:{family:"'IBM Plex Mono'",size:11},padding:11,callbacks:{label:c=>{const u=c.datasetIndex===2?'%':' kg';return` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}${u}`}}}},
-      scales:{
-        x:{grid:{color:'rgba(255,255,255,.03)'},ticks:{color:'#2e2e2e',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:9}},
-        y:{position:'left',grid:{color:'rgba(255,255,255,.03)'},ticks:{color:'#2e2e2e',font:{family:"'IBM Plex Mono'",size:10},callback:v=>v+' kg'}},
-        y2:{position:'right',grid:{display:false},ticks:{color:'rgba(255,85,85,.3)',font:{family:"'IBM Plex Mono'",size:10},callback:v=>v+'%'}},
-      }}});
-}
-
-let MC=mkChart('mc',slice(3),false);
-function glowLine(ds){MC._gDs=ds;MC.update('none')}
-function clearGlow(){MC._gDs=undefined;MC.update('none')}
-function setR(m,btn){
-  document.querySelectorAll('.ct').forEach(t=>t.classList.remove('active'));btn.classList.add('active');
-  const d=slice(m);MC.data.labels=d.labels;MC.data.datasets[0].data=d.weight;MC.data.datasets[1].data=d.muscle;MC.data.datasets[2].data=d.fat;MC.update();
-}
-
-let dpChart=null;
-function initDashChart(){if(dpChart)return;dpChart=mkChart('dpc',slice(6),true);}
-
-// PAGE NAV
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-  if(id==='dash-page')initDashChart();
-}
-
-// LOGIN
-function doLogin(){
-  const e=document.getElementById('login-email').value;
-  const p=document.getElementById('login-pass').value;
-  if(e==='demo@strata.app'&&p==='strata2026'){showPage('dash-page');}
-  else{alert('Use demo@strata.app / strata2026 for the demo dashboard.');}
-}
-
-// BILLING
-let annual=false;
-function toggleBill(){
-  annual=!annual;
-  document.getElementById('btog').classList.toggle('on',annual);
-  document.getElementById('disc-banner').classList.toggle('show',annual);
-}
-
-// UPLOAD
-function handleUpload(ev){
-  const file=ev.target.files[0];if(!file)return;
-  const s=document.getElementById('upload-status');s.style.display='block';
-  s.innerHTML='⟳ AI reading your scan...';
-  setTimeout(()=>{s.innerHTML=`✓ Detected: <span style="color:var(--white)">Body Composition Scan</span><br><br>
-    Weight: <span style="color:var(--white)">77.8 kg</span> &nbsp;|&nbsp;
-    Muscle: <span style="color:var(--blue4)">34.4 kg ▲</span> &nbsp;|&nbsp;
-    Fat: <span style="color:var(--white)">19.1%</span> &nbsp;|&nbsp;
-    Visceral: <span style="color:var(--white)">6/20</span><br><br>
-    <span style="color:rgba(255,255,255,.35)">AI insight: Fat loss +0.7% · Muscle gain +0.3 kg · Excellent protocol response.</span><br><br>
-    <button onclick="saveSession()" style="background:#fff;color:#000;border:none;padding:8px 18px;border-radius:980px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;">Save session</button>`;
-  },2200);
-}
-function saveSession(){document.getElementById('upload-status').innerHTML='✓ Session saved. Dashboard updated.';setTimeout(()=>{document.getElementById('upload-status').style.display='none';},2000);}
-function exportPDF(){const b=event.target;const o=b.innerHTML;b.textContent='⟳ Generating...';setTimeout(()=>{b.innerHTML=o;alert('PDF report generated (demo)');},1500);}
-
-// FAQ
-function buildFAQ(){
-  const el=document.getElementById('faq-list');
-  el.innerHTML=(T[lang].faqs||T.en.faqs).map((q,i)=>`
-    <div class="fqi" id="fq${i}">
-      <button class="fqq" onclick="tFaq(${i})"><span>${q[0]}</span><span class="fa">+</span></button>
-      <div class="fqa">${q[1]}</div>
-    </div>`).join('');
-}
-function tFaq(i){document.getElementById('fq'+i).classList.toggle('open')}
-buildFAQ();
-
-// REVEAL
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.06});
-document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-
-// ENTER on login
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('login-page').classList.contains('active'))doLogin();});
 </script>
-</body>
-</html>
